@@ -37,7 +37,7 @@ public abstract class RaiderManagerMixin
     @Final
     private Map<Integer, Raid> raids;
     
-    @SuppressWarnings({"UnreachableCode", "java:S125"})
+    @SuppressWarnings({"UnreachableCode", "java:S125", "checkstyle:MagicNumber"})
     @Inject(method = "startRaid", at = @At("HEAD"), cancellable = true)
     protected void startRaid(
         final ServerPlayerEntity player,

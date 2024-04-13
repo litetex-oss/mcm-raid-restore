@@ -43,6 +43,17 @@ processResources {
     }
 }
 
+checkstyle {
+    configDirectory = file("$rootProject.projectDir/.config/checkstyle")
+    ignoreFailures false
+    showViolations true
+    toolVersion = checkstyleVersion
+}
+
+tasks.withType(Checkstyle).configureEach {
+    enabled = project.hasProperty("checkstyleEnabled");
+}
+
 tasks.withType(JavaCompile).configureEach {
     it.options.release = 17
 }
