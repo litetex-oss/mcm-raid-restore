@@ -1,6 +1,12 @@
 plugins {
     id 'fabric-loom' version '1.6.6'
     id 'maven-publish'
+    id 'checkstyle'
+    id 'org.sonarqube' version '5.0.0.4638'
+}
+
+ext {
+    checkstyleVersion = '10.15.0'
 }
 
 version = project.mod_version
@@ -10,7 +16,15 @@ base {
     archivesName = project.archives_base_name
 }
 
+// https://github.com/gradle/gradle/issues/27035
+configurations.checkstyle {
+    resolutionStrategy.capabilitiesResolution.withCapability("com.google.collections:google-collections") {
+        select("com.google.guava:guava:0")
+    }
+}
+
 dependencies {
+    checkstyle "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"
     // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
