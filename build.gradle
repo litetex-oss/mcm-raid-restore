@@ -1,8 +1,9 @@
 plugins {
-    id 'fabric-loom' version '1.6.6'
+    id 'fabric-loom' version '1.6.7'
     id 'maven-publish'
     id 'checkstyle'
     id 'org.sonarqube' version '5.0.0.4638'
+    id 'com.modrinth.minotaur' version '2.8.7'
 }
 
 ext {
@@ -89,4 +90,14 @@ publishing {
         // The repositories here will be used for publishing your artifact, not for
         // retrieving dependencies.
     }
+}
+
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
+// https://github.com/modrinth/minotaur/blob/master/README.md#available-properties
+modrinth {
+    // token defaults to "MODRINTH_TOKEN" environment variable
+    projectId = project.archives_base_name
+    versionType = "beta"
+    uploadFile = remapJar
+    syncBodyFrom = rootProject.file("README.md").text
 }
