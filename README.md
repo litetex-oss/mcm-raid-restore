@@ -8,13 +8,13 @@
 
 # Raid Restorer
 
-Restores the raid mechanic like it was before 1.21.
+Restores the raid mechanic like it was in 1.20, which makes raid farms working again.
 
 <i>Note that this mod is still in a preview phase as 1.21 is not released yet</i>
 
 ## Motivation/Why does this mod exist?
 
-Raids [in 1.21](https://minecraft.wiki/w/Java_Edition_24w13a) got significantly changed. It's no longer possible to create stacking raid farm. This mod restores the original 1.20 mechanic.
+Raids [in 1.21](https://minecraft.wiki/w/Java_Edition_24w13a) got significantly changed and it's no longer possible to create stacking raid farm.
 
 <!-- modrinth_exclude.start -->
 

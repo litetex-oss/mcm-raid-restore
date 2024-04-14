@@ -3,7 +3,7 @@
   "id": "raid-restore",
   "version": "${version}",
   "name": "Raid Restorer",
-  "description": "Restores the original raid mechanic like it was before 1.21",
+  "description": "Restores the original raid mechanic like it was in 1.20",
   "authors": [
     "litetex"
   ],
