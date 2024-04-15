@@ -25,6 +25,6 @@ jobs:
     - name: Upload mod files
       uses: actions/upload-artifact@v4
       with:
-        name: mod-files-java-${{ matrix.java }}
+        name: mod-files
         path: build/libs/*.jar
         if-no-files-found: error
