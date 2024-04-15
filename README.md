@@ -25,7 +25,7 @@ Imagine you have a big redstone project that requires a full Shulkerbox of Redst
 How do you get those resources in 1.21+?
 
 #### Options in 1.20
-| Method | Items/h | Emeralds/h | Redstone/h | Time to fill Redstone block shulkerbox | Notes |
+| Method | Items/h | <img src="https://minecraft.wiki/images/Invicon_Emerald.png" height="16" /> Emeralds/h | <img src="https://minecraft.wiki/images/Invicon_Redstone.png" height="16" /> Redstone/h | Time to fill Redstone block shulkerbox | Notes |
 | --- |  --- | --- | --- | --- | --- |
 | [Raid farm](https://www.youtube.com/watch?v=TDnppbTrdks)| ~8k | 3.5k | ~340 | 2d | † 1.21
 | [Stacking Raid Farm](https://www.youtube.com/watch?v=n3mOlrMGjUg) | 128k | 56k | ~5.4k | ~3h | † 1.21
@@ -33,11 +33,11 @@ How do you get those resources in 1.21+?
 | Witch farm (various designs) | 2-5k | - | 200-550 | 1.5-3d | At least 2x slower since 1.18 due to larger world height
 | [Overworld mob farm](https://www.youtube.com/watch?v=Gg17wAr_IOI) (values adjusted for 1.18+) | ~9k | - | ~10 | >2 months | 
 | [Mining/Caving at -54](https://www.youtube.com/watch?v=5cnLaNtxMek&t=480s) | 250 ore blocks | near 0 | ~1.5k | ~11h | <ul><li>No AFK</li><li>Non renewable</li><li>Requires appropriate equipment</li><li>Risk of death</li></ul>
-| Trading (50 clerics + 50 smiths) | - | 0 when trading for Redstone <br/><br/>~6.5k (1 Emerald per 4 Iron x 12 trades x 2 times/day x 5.5 [11 min/day] x 50 villagers) | ~13k (2 Redstone per Emerald x 12 trades x 2 times/day x 5.5 [11 min/day] x 50 villagers) | 1.2h | <ul><li>No AFK</li><li>Requires >26k Iron/h (an average 4x Iron farm with 12 villagers produces ~1.5k Iron/h)</li><li>May cause lag as villagers need a lot of performance</li></ul>
+| Trading (50 clerics + 50 smiths) | - | 0 when trading for Redstone <br/><br/>~6.5k<br/><i>1 per 4 Iron <br/>x 12 trades <br/>x 2 times/day <br/>x 5.5 (11 min/day) <br/>x 50 villagers</i> | ~13k<br/><i>2 per Emerald <br/>x 12 trades <br/>x 2 times/day <br/>x 5.5 (11 min/day) <br/>x 50 villagers</i> | 1.2h | <ul><li>No AFK</li><li>Requires >26k Iron/h (an average 4x Iron farm with 12 villagers produces ~1.5k Iron/h)</li><li>May cause lag as villagers need a lot of performance</li></ul>
 
 #### Predicted Raid farm for 1.21
 <i>Note that these values are predictions as there is no Raid farm for 1.21 yet.</i>
-| Method | Items/h | Emeralds/h | Redstone/h | Time to fill Redstone block shulkerbox | Notes |
+| Method | Items/h | <img src="https://minecraft.wiki/images/Invicon_Emerald.png" height="16" /> Emeralds/h | <img src="https://minecraft.wiki/images/Invicon_Redstone.png" height="16" /> Redstone/h | Time to fill Redstone block shulkerbox | Notes |
 | --- |  --- | --- | --- | --- | --- |
 | 1.21 Raid farm (predicted) | ~6k | ~2.7k | ~250 | 2.7 days | <ul><li>Stacking Raid farms are no longer possible</li><li>Requires collecting and drinking the Ominous Bottle (~2s)</li><li>Harder to AFK as bottle needs to be consumed + Killing mobs</li><li>Requires a beacon/regeneration to not starve to death</li><li>Additional count down of Raid omen (30s)</li><li>A raid cycle is roughly ~2mins in comparison to ~1m30s in 1.20 → 1.21 farm has an estimated 75% performance of 1.20</li></ul>
 
