@@ -50,15 +50,16 @@ Although no explicit reason have been stated why Stacked raid farms have been ne
 IMHO this is the wrong way to go, as this change just causes negative effects:
 1. It makes the game harder: "Very advanced players" (that need a lot of resources) now have no viable alternative. Do you like to mine/trade with villagers for hours or AFK for a lot longer? No? Well in 1.21 you have to. This can be very demotivating.
 2. Stacked raid farms may be relatively easy to build (it still takes some hours to build them), but only so because (other) people did a lot of research and engineering on that mechanic.
-3. Just because the mechanic exists doesn't mean that you HAVE to use it. I bet that most casual players don't even know/care about it. You can play the game in the way that you like. So I kind of don't understand - why some people that complain about how other people play the game - now get what they want despite having no positive effects for them and just bad ones for others.
+3. Just because the mechanic exists doesn't mean that you HAVE to use it. I bet that most casual players don't even know/care about it. You can play the game in the way that you like.<br/>So I kind of don't understand why some people that complain about how other people play the game now get what they want despite having no positive effects for them and just bad ones for others.
 
 <details><summary>The same opinion is also expressed by others</summary>
 
-* > I do think it is OP, but the fact that you can build a farm this powerful with so little effort should be considered an achievment of the technical community, because they did the research, the design, and they exploited the code in just the right way <sup>[Reddit](https://www.reddit.com/r/technicalminecraft/comments/xarqd9/comment/inwasb5)</sup>
-* > ... because having tons of those materials doesn’t take away from the experience. However, it does not matter what I think or what Ilmango thinks, or what anyone else who comments here thinks. Play how u want to play bro c: <sup>[Reddit](https://www.reddit.com/r/technicalminecraft/comments/xarqd9/comment/invemiw)</sup>
 * > If you don't like them, don't use them. It's not like anyone is preventing you from build a witch farm instead. No need to ruin everyone else's fun just because you prefer to play differently.<sup>[Reddit](https://www.reddit.com/r/technicalminecraft/comments/r1yaee/comment/hm4seea)</sup>
 * > Don’t like it, don’t build it is my opinion. If we plan on asking Mojang to nerf any farm/mechanic we don’t personally like or use ourselves things would be incredibly messy and nothing but nonstop arguments about what stays and what’s “cheating/too over powered.”<sup>[Reddit](https://www.reddit.com/r/technicalminecraft/comments/xab4ja/comment/insvopo)</sup>
 * > I think the main problem is people telling others how to play. If you feel building a raid farm is "cheating", don't do it. Your friend seems to think otherwise... <sup>[Reddit](https://www.reddit.com/r/Minecraft/comments/fg148d/comment/fk1uv48)</sup>
+* > I do think it is OP, but the fact that you can build a farm this powerful with so little effort should be considered an achievement of the technical community, because they did the research, the design, and they exploited the code in just the right way <sup>[Reddit](https://www.reddit.com/r/technicalminecraft/comments/xarqd9/comment/inwasb5)</sup>
+* > ... because having tons of those materials doesn’t take away from the experience. However, it does not matter what I think or what Ilmango thinks, or what anyone else who comments here thinks. Play how u want to play bro c: <sup>[Reddit](https://www.reddit.com/r/technicalminecraft/comments/xarqd9/comment/invemiw)</sup>
+
 </details>
 
 </details>
