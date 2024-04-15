@@ -97,7 +97,7 @@ tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
 modrinth {
     // token defaults to "MODRINTH_TOKEN" environment variable
     projectId = project.archives_base_name
-    versionType = "beta"
+    versionType = System.getenv("MODRINTH_VERSION_TYPE")
     uploadFile = remapJar
     syncBodyFrom = rootProject.file("README.md").text
     changelog = System.getenv("MODRINTH_CHANGELOG_TEXT")
