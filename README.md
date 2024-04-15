@@ -6,7 +6,7 @@
 
 <!-- modrinth_exclude.end -->
 
-# <img src="https://raw.githubusercontent.com/litetex-oss/mcm-raid-restore/dev/src/main/resources/assets/raid-restore/icon.png" height="32" /> Raid Restorer
+# Raid Restorer
 
 Restores the raid mechanic like it was in 1.20, which makes raid farms work again.
 
