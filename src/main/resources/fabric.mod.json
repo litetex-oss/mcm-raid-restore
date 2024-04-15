@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "raid-restore",
+  "version": "${version}",
+  "name": "Raid Restorer",
+  "description": "Restores the original raid mechanic like it was in 1.20",
+  "authors": [
+    "litetex"
+  ],
+  "contact": {
+    "sources": "https://github.com/litetex-oss/mcm-raid-restore",
+    "issues": "https://github.com/litetex-oss/mcm-raid-restore/issues"
+  },
+  "license": "Apache-2.0",
+  "icon": "assets/raid-restore/icon.png",
+  "environment": "*",
+  "mixins": [
+    "raid-restore.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}"
+  },
+  "recommends": {
+    "minecraft": "${minecraft_version}"
+  }
+}

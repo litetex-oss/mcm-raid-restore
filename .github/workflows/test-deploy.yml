@@ -1,0 +1,30 @@
+name: Test Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up JDK
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
+    - name: Build and publish
+      run: ./gradlew build modrinth --info
+      env:
+        MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        MODRINTH_VERSION_TYPE: 'beta'
+        MODRINTH_CHANGELOG_TEXT: 'Available at https://github.com/litetex-oss/mcm-raid-restore/blob/dev/CHANGELOG.md<br/><i>Please not that this is a SNAPSHOT which might be unstable</i>'
+
+    - name: Upload mod files
+      uses: actions/upload-artifact@v4
+      with:
+        name: mod-files
+        path: build/libs/*.jar
+        if-no-files-found: error

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.litetex.raidrestore.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "BadOmenStatusEffectMixin",
+    "RaiderEntityMixin",
+    "RaiderManagerMixin",
+    "RaidMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
