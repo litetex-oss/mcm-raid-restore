@@ -34,6 +34,16 @@
       "defaultRegistryUrls": [
         "https://maven.fabricmc.net/"
       ]
+    },
+    {
+      "description": "Yarn versions follow no scheme",
+      "matchPackagePatterns": [
+        "^net.fabricmc:yarn"
+      ],
+      "datasources": [
+        "maven"
+      ],
+      "versioning": "loose"
     }
   ]
 }
