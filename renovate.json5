@@ -12,6 +12,28 @@
       ],
       "matchCurrentVersion": "0",
       "enabled": false
+    },
+    {
+      "description": "This is a mock artifact",
+      "matchPackagePatterns": [
+        "^com.mojang:minecraft"
+      ],
+      "datasources": [
+        "maven"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Fabric has a custom server (see settings.gradle)",
+      "matchPackagePatterns": [
+        "^net.fabricmc"
+      ],
+      "datasources": [
+        "maven"
+      ],
+      "defaultRegistryUrls": [
+        "https://maven.fabricmc.net/"
+      ]
     }
   ]
 }
