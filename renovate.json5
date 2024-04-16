@@ -32,7 +32,10 @@
     {
       "description": "Fabric has a custom server (see settings.gradle)",
       "matchPackagePatterns": [
-        "^net.fabricmc:(?!yarn)"
+        "^net.fabricmc"
+      ],
+      "excludePackagePatterns": [
+        "^net.fabricmc:yarn"
       ],
       "datasources": [
         "maven"
