@@ -1,6 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "rebaseWhen": "behind-base-branch",
+  "customDatasources": {
+    "fabric-yarn-latest": {
+      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/litetex/mcd-yarn-latest-versions/dev/latest-version.txt",
+      "format": "plain"
+    }
+  },
   "packageRules": [
     {
       "description": "Workaround, see https://github.com/gradle/gradle/issues/27035",
@@ -26,7 +32,7 @@
     {
       "description": "Fabric has a custom server (see settings.gradle)",
       "matchPackagePatterns": [
-        "^net.fabricmc"
+        "^net.fabricmc:(?!yarn)"
       ],
       "datasources": [
         "maven"
@@ -40,8 +46,8 @@
       "matchPackagePatterns": [
         "^net.fabricmc:yarn"
       ],
-      "datasources": [
-        "maven"
+      "matchDatasources": [
+        "custom.fabric-yarn-latest"
       ],
       "versioning": "loose"
     }
