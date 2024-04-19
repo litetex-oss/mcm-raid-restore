@@ -16,8 +16,6 @@ Restores the raid mechanic like it was in 1.20, which makes raid farms work agai
 
 Raids [in 1.21](https://minecraft.wiki/w/Java_Edition_24w13a) got significantly changed and it's no longer possible to create a stacking raid farm.
 
-<!-- modrinth_exclude.start -->
-
 <details><summary>More details, comparisons and arguments</summary>
 
 ### Resource gathering times
@@ -44,6 +42,8 @@ How do you get those resources in 1.21+?
 #### Conclusion for 1.21
 As we can see without stacking Raid farms collecting these resources takes a lot longer or becomes way harder (no AFK).
 
+<!-- modrinth_exclude.start -->
+
 ### The nerf itself
 Although no explicit reason have been stated why Stacked raid farms have been nerfed (they could have just kept the Bad Omen mechanic, maybe shorten the effect duration when killing a Raider to ~3 minutes - from 100 - and drop the bottle additionally), it's likely caused by the fact that parts of the community are complaining about the fact that these are to "overpowered/cheaty/illegal". (Quite the same happened for AFK fish farms in 1.16 - but you had Villager trading as an viable alternative)
 
@@ -62,7 +62,11 @@ IMHO this is the wrong way to go, as this change just causes negative effects:
 
 </details>
 
+<!-- modrinth_exclude.end -->
+
 </details>
+
+<!-- modrinth_exclude.start -->
 
 ## Installation
 [Installation guide for the latest release](https://github.com/litetex-oss/mcm-raid-restore/releases/latest#Installation)
