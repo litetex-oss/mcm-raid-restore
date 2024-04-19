@@ -16,6 +16,8 @@ Restores the raid mechanic like it was in 1.20, which makes raid farms work agai
 
 Raids [in 1.21](https://minecraft.wiki/w/Java_Edition_24w13a) got significantly changed and it's no longer possible to create a stacking raid farm.
 
+<!-- modrinth_exclude.start -->
+
 <details><summary>More details, comparisons and arguments</summary>
 
 ### Resource gathering times
@@ -23,7 +25,7 @@ Imagine you have a big redstone project that requires a full Shulkerbox of Redst
 How do you get those resources in 1.21+?
 
 #### Options in 1.20
-| Method | Items/h | <img src="https://minecraft.wiki/images/Invicon_Emerald.png" height="16" /> Emeralds/h | <img src="https://minecraft.wiki/images/Invicon_Redstone.png" height="16" /> Redstone/h | Time to fill Redstone block shulkerbox | Notes |
+| Method | Items/h | Emeralds/h | Redstone/h | Time to fill Redstone block shulkerbox | Notes |
 | --- |  --- | --- | --- | --- | --- |
 | [Raid farm](https://www.youtube.com/watch?v=TDnppbTrdks)| ~8k | 3.5k | ~340 | 2d | † 1.21
 | [Stacking Raid Farm](https://www.youtube.com/watch?v=n3mOlrMGjUg) | 128k | 56k | ~5.4k | ~3h | † 1.21
@@ -35,14 +37,12 @@ How do you get those resources in 1.21+?
 
 #### Predicted Raid farm for 1.21
 <i>Note that these values are predictions as there is no Raid farm for 1.21 yet.</i>
-| Method | Items/h | <img src="https://minecraft.wiki/images/Invicon_Emerald.png" height="16" /> Emeralds/h | <img src="https://minecraft.wiki/images/Invicon_Redstone.png" height="16" /> Redstone/h | Time to fill Redstone block shulkerbox | Notes |
+| Method | Items/h | Emeralds/h | Redstone/h | Time to fill Redstone block shulkerbox | Notes |
 | --- |  --- | --- | --- | --- | --- |
 | 1.21 Raid farm (predicted) | ~6k | ~2.7k | ~250 | 2.7 days | <ul><li>Stacking Raid farms are no longer possible</li><li>Requires collecting and drinking the Ominous Bottle (~2s)</li><li>Harder to AFK as bottle needs to be consumed + Killing mobs</li><li>Requires a beacon/regeneration to not starve to death</li><li>Additional count down of Raid omen (30s)</li><li>A raid cycle is roughly ~2mins in comparison to ~1m30s in 1.20 → 1.21 farm has an estimated 75% performance of 1.20</li></ul>
 
 #### Conclusion for 1.21
 As we can see without stacking Raid farms collecting these resources takes a lot longer or becomes way harder (no AFK).
-
-<!-- modrinth_exclude.start -->
 
 ### The nerf itself
 Although no explicit reason have been stated why Stacked raid farms have been nerfed (they could have just kept the Bad Omen mechanic, maybe shorten the effect duration when killing a Raider to ~3 minutes - from 100 - and drop the bottle additionally), it's likely caused by the fact that parts of the community are complaining about the fact that these are to "overpowered/cheaty/illegal". (Quite the same happened for AFK fish farms in 1.16 - but you had Villager trading as an viable alternative)
@@ -62,11 +62,7 @@ IMHO this is the wrong way to go, as this change just causes negative effects:
 
 </details>
 
-<!-- modrinth_exclude.end -->
-
 </details>
-
-<!-- modrinth_exclude.start -->
 
 ## Installation
 [Installation guide for the latest release](https://github.com/litetex-oss/mcm-raid-restore/releases/latest#Installation)
