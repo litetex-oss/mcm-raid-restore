@@ -54,7 +54,7 @@ jobs:
 
           echo "Performing commit"
           git add -A
-          git commit -m "Yarn Update $(date -u +%Y-%m-%d-%H-%M)"
+          git commit -m "Yarn $yarnVersion"
 
           echo "Pushing update branch"
           git push -f -u origin ${{ env.UPDATE_BRANCH }}
