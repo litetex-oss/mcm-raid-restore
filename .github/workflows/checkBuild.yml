@@ -70,7 +70,7 @@ jobs:
 
   code-style:
     runs-on: ubuntu-latest
-    if: ${{ github.event_name != 'pull_request' || !startsWith(github.head_ref, 'renovate/') }}
+    if: ${{ github.event_name != 'pull_request' || !(startsWith(github.head_ref, 'renovate/') || startsWith(github.head_ref, 'automated/')) }}
 
     strategy:
       matrix:

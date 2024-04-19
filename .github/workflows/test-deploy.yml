@@ -14,12 +14,13 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '21'
+        cache: 'gradle'
 
     - name: Build and publish
-      run: ./gradlew build modrinth --info
+      run: ./gradlew clean build modrinth --info
       env:
         MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-        MODRINTH_VERSION_TYPE: 'beta'
+        MODRINTH_VERSION_TYPE: 'alpha'
         MODRINTH_CHANGELOG_TEXT: 'Available at https://github.com/litetex-oss/mcm-raid-restore/blob/dev/CHANGELOG.md<br/><i>Please not that this is a SNAPSHOT which might be unstable</i>'
 
     - name: Upload mod files

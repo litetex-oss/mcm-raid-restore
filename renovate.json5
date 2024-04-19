@@ -12,6 +12,41 @@
       ],
       "matchCurrentVersion": "0",
       "enabled": false
+    },
+    {
+      "description": "This is a mock artifact",
+      "matchPackagePatterns": [
+        "^com.mojang:minecraft"
+      ],
+      "datasources": [
+        "maven"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Fabric has a custom server (see settings.gradle)",
+      "matchPackagePatterns": [
+        "^net.fabricmc"
+      ],
+      "excludePackagePatterns": [
+        "^net.fabricmc:yarn"
+      ],
+      "datasources": [
+        "maven"
+      ],
+      "defaultRegistryUrls": [
+        "https://maven.fabricmc.net/"
+      ]
+    },
+    {
+      "description": "Disable yarn as it has custom management due to non semver versioning",
+      "matchPackagePatterns": [
+        "^net.fabricmc:yarn"
+      ],
+      "datasources": [
+        "maven"
+      ],
+      "enabled": false
     }
   ]
 }
