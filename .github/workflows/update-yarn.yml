@@ -71,4 +71,4 @@ jobs:
           }
           gh_pr_up -B "${{ steps.update.outputs.pr_target_branch }}" \
             --title "Yarn update" \
-            --body "An automated PR to update [yarn](https://github.com/FabricMC/yarn).<sup>[Source](https://maven.fabricmc.net/net/fabricmc/yarn/maven-metadata.xml)</sup>"
+            --body "An automated PR to update [yarn](https://github.com/FabricMC/yarn).<br>[Source](https://maven.fabricmc.net/net/fabricmc/yarn/maven-metadata.xml)"
