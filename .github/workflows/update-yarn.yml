@@ -66,7 +66,7 @@ jobs:
         env:
           # Don't use default token as no workflows are run otherwise
           # https://github.com/orgs/community/discussions/65321#discussioncomment-6861423
-          GH_TOKEN: ${{ secrets.UPDATE_FROM_TEMPLATE_PAT }}
+          GH_TOKEN: ${{ secrets.BOT_PR_PAT }}
         run: |
           gh_pr_up() { 
             gh pr create -H "${{ env.UPDATE_BRANCH }}" "$@" || (git checkout "${{ env.UPDATE_BRANCH }}" && gh pr edit "$@")
