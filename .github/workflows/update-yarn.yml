@@ -1,0 +1,74 @@
+name: Update yarn
+
+on:
+  schedule:
+    - cron: '47 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  UPDATE_BRANCH: update-yarn
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Required because otherwise there are always changes detected when executing diff/rev-list
+          fetch-depth: 0
+      
+      - name: Init Git
+        run: |
+          git config --global user.email "164098849+litetex-oss-bot@users.noreply.github.com"
+          git config --global user.name "litetex-oss-bot"
+
+      - name: Update
+        id: update
+        run: |
+          yarnVersion=$(curl --fail -L https://maven.fabricmc.net/net/fabricmc/yarn/maven-metadata.xml | grep -oP "(?<=<latest>)[^<]+")
+          
+          echo "Deleting local branch that will contain the updates - if present"
+          git branch -D ${{ env.UPDATE_BRANCH }} || true
+
+          echo "Creating update branch"
+          git checkout -b ${{ env.UPDATE_BRANCH }}
+
+          echo "Replacing yarn version"
+          sed -i "s/^\(yarn_mappings\s*=\s*\).*\$/\1$yarnVersion/" gradle.properties
+
+          if [[ "$(git status --porcelain)" == "" ]]; then
+            echo "No files to commit"
+            echo "abort=1" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          echo "Performing commit"
+          git add -A
+          git commit -m "Yarn Update $(date -u +%Y-%m-%d-%H-%M)"
+
+          echo "Pushing"
+          git push origin
+          
+          echo "Getting current branch"
+          current_branch=$(git branch --show-current)
+          echo "Current branch is $current_branch"
+          echo "current_branch=$current_branch" >> $GITHUB_OUTPUT
+
+          echo "abort=0" >> $GITHUB_OUTPUT
+          
+      - name: pull-request
+        if: steps.update.outputs.abort == 0
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh_pr_up() { 
+            gh pr create -H "${{ env.UPDATE_BRANCH }}" "$@" || (git checkout "${{ env.UPDATE_BRANCH }}" && gh pr edit "$@")
+          }
+          gh_pr_up -B "${{ steps.update.outputs.current_branch }}" \
+            --title "Yarn update" \
+            --body "An automated PR to update [yarn](https://github.com/FabricMC/yarn).<sup>[Source](https://maven.fabricmc.net/net/fabricmc/yarn/maven-metadata.xml)</sup>"

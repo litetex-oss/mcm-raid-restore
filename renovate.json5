@@ -1,20 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "rebaseWhen": "behind-base-branch",
-  "customManagers": [
-    {
-      "customType": "regex",
-      "fileMatch": [ "gradle.properties"],
-      "matchStrings": [ "yarn_mappings=(?<currentValue>\\S+)" ],
-      "datasourceTemplate": "custom.fabric-yarn-latest"
-    }
-  ],
-  "customDatasources": {
-    "fabric-yarn-latest": {
-      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/litetex/mcd-yarn-latest-versions/dev/latest-version.txt",
-      "format": "plain"
-    }
-  },
   "packageRules": [
     {
       "description": "Workaround, see https://github.com/gradle/gradle/issues/27035",
@@ -53,7 +39,7 @@
       ]
     },
     {
-      "description": "Disable yarn as it's managed by a custom manager",
+      "description": "Disable yarn as it has custom management due to non semver versioning",
       "matchPackagePatterns": [
         "^net.fabricmc:yarn"
       ],
