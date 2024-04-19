@@ -1,6 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "rebaseWhen": "behind-base-branch",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [ "gradle.properties"],
+      "matchStrings": [ "yarn_mappings=(?<currentValue>\\S+)" ],
+      "datasourceTemplate": "custom.fabric-yarn-latest"
+    }
+  ],
   "customDatasources": {
     "fabric-yarn-latest": {
       "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/litetex/mcd-yarn-latest-versions/dev/latest-version.txt",
@@ -45,14 +53,14 @@
       ]
     },
     {
-      "description": "Yarn versions follow no scheme",
+      "description": "Disable yarn as it's managed by a custom manager",
       "matchPackagePatterns": [
         "^net.fabricmc:yarn"
       ],
-      "matchDatasources": [
-        "custom.fabric-yarn-latest"
+      "datasources": [
+        "maven"
       ],
-      "versioning": "loose"
+      "enabled": false
     }
   ]
 }
