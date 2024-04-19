@@ -29,7 +29,7 @@ How do you get those resources in 1.21+?
 | --- |  --- | --- | --- | --- | --- |
 | [Raid farm](https://www.youtube.com/watch?v=TDnppbTrdks)| ~8k | 3.5k | ~340 | 2d | † 1.21
 | [Stacking Raid Farm](https://www.youtube.com/watch?v=n3mOlrMGjUg) | 128k | 56k | ~5.4k | ~3h | † 1.21
-| [Max. Stacking Raid Farm](https://www.youtube.com/watch?v=bAHQ321sF7E) | 480k | 210k | ~20k | ~50min | † 1.21
+| [Max. Stacking Raid Farm](https://www.youtube.com/watch?v=yhW2Wub_4yw) | 896k | 471k | ~33.7k | 30min | † 1.21
 | Witch farm (various designs) | 2-5k | - | 200-550 | 1.5-3d | At least 2x slower since 1.18 due to larger world height
 | [Overworld mob farm](https://www.youtube.com/watch?v=Gg17wAr_IOI) (values adjusted for 1.18+) | ~9k | - | ~10 | >2 months | 
 | [Mining/Caving at -54](https://www.youtube.com/watch?v=5cnLaNtxMek&t=480s) | 250 ore blocks | near 0 | ~1.5k | ~11h | <ul><li>No AFK</li><li>Non renewable</li><li>Requires appropriate equipment</li><li>Risk of death</li></ul>
