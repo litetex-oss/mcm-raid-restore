@@ -10,7 +10,7 @@ permissions:
   pull-requests: write
 
 env:
-  UPDATE_BRANCH: update-yarn
+  UPDATE_BRANCH: automated/update-yarn
 
 jobs:
   update:
