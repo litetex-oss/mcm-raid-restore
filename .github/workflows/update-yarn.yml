@@ -31,6 +31,11 @@ jobs:
         id: update
         run: |
           yarnVersion=$(curl --fail -L https://maven.fabricmc.net/net/fabricmc/yarn/maven-metadata.xml | grep -oP "(?<=<latest>)[^<]+")
+
+          echo "Getting PR target branch"
+          pr_target_branch=$(git branch --show-current)
+          echo "PR target branch is $pr_target_branch"
+          echo "pr_target_branch=$pr_target_branch" >> $GITHUB_OUTPUT
           
           echo "Deleting local branch that will contain the updates - if present"
           git branch -D ${{ env.UPDATE_BRANCH }} || true
@@ -53,11 +58,6 @@ jobs:
 
           echo "Pushing update branch"
           git push -f -u origin ${{ env.UPDATE_BRANCH }}
-          
-          echo "Getting current branch"
-          current_branch=$(git branch --show-current)
-          echo "Current branch is $current_branch"
-          echo "current_branch=$current_branch" >> $GITHUB_OUTPUT
 
           echo "abort=0" >> $GITHUB_OUTPUT
           
@@ -69,6 +69,6 @@ jobs:
           gh_pr_up() { 
             gh pr create -H "${{ env.UPDATE_BRANCH }}" "$@" || (git checkout "${{ env.UPDATE_BRANCH }}" && gh pr edit "$@")
           }
-          gh_pr_up -B "${{ steps.update.outputs.current_branch }}" \
+          gh_pr_up -B "${{ steps.update.outputs.pr_target_branch }}" \
             --title "Yarn update" \
             --body "An automated PR to update [yarn](https://github.com/FabricMC/yarn).<sup>[Source](https://maven.fabricmc.net/net/fabricmc/yarn/maven-metadata.xml)</sup>"
