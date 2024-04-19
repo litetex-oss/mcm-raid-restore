@@ -51,8 +51,8 @@ jobs:
           git add -A
           git commit -m "Yarn Update $(date -u +%Y-%m-%d-%H-%M)"
 
-          echo "Pushing"
-          git push origin
+          echo "Pushing update branch"
+          git push -f -u origin ${{ env.UPDATE_BRANCH }}
           
           echo "Getting current branch"
           current_branch=$(git branch --show-current)
