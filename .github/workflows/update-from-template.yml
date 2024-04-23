@@ -36,8 +36,8 @@ jobs:
       
       - name: Init Git
         run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
+          git config --global user.email "164098849+litetex-oss-bot@users.noreply.github.com"
+          git config --global user.name "litetex-oss-bot"
 
       - name: Main workflow
         id: main
