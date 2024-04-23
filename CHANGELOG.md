@@ -1,2 +1,6 @@
+# 0.1.0
+_Initial release for stable version (1.20.5)_
+* 1.21 Raid changes are still experimental therefore this is still a preview
+
 # 0.0.X
-<i>Initial release</i>
+_Initial release_
