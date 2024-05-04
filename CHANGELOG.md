@@ -1,3 +1,6 @@
+# 0.2.0
+* Target version are now 1.21 Snapshots (currently 24w18a)
+
 # 0.1.1
 * Target version is now 1.20.6
 
