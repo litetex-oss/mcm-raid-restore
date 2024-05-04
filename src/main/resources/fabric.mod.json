@@ -17,10 +17,8 @@
   "mixins": [
     "raid-restore.mixins.json"
   ],
-  "depends": {
-    "fabricloader": ">=${loader_version}"
-  },
   "recommends": {
+    "fabricloader": ">=${loader_version}",
     "minecraft": "${minecraft_version}"
   }
 }
