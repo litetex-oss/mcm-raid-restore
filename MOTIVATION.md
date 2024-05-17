@@ -8,7 +8,7 @@ How do you get those resources in 1.21+?
 | [Raid farm](https://www.youtube.com/watch?v=TDnppbTrdks)| ~8k | 3.5k | ~340 | 2d | † 1.21
 | [Stacking Raid Farm](https://www.youtube.com/watch?v=n3mOlrMGjUg) | 128k | 56k | ~5.4k | ~3h | † 1.21
 | [Max. Stacking Raid Farm](https://www.youtube.com/watch?v=yhW2Wub_4yw) | 896k | 471k | ~33.7k | 30min | † 1.21
-| Witch farm (various designs) | 2-5k | - | 200-550 | 1.5-3d | <ul><li>At least 2x slower since 1.18 due to larger world height</li><li>Requires a witch hut</li><li>Witch huts got a lot rarer in 1.19 due to the introduction of the Mangrove Swamp where they do not generate</li></ul>
+| Witch farm (various designs) | 2-5k | - | 200-550 | 1.5-3d | <ul><li>At least 2x slower since 1.18 due to larger world height</li><li>Requires a witch hut</li><li>Witch huts got a lot rarer in 1.19 due to the introduction of the Mangrove Swamp where they don't generate</li></ul>
 | [Overworld mob farm](https://www.youtube.com/watch?v=Gg17wAr_IOI) (values adjusted for 1.18+) | ~9k | - | ~10 | >2 months | 
 | [Mining/Caving at -54](https://www.youtube.com/watch?v=5cnLaNtxMek&t=480s) | 250 ore blocks | near 0 | ~1.5k | ~11h | <ul><li>No AFK</li><li>Non renewable</li><li>Requires appropriate equipment</li><li>Risk of death</li></ul>
 | Trading (50 clerics + 50 smiths) | - | 0 when trading for Redstone <br/><br/>~6.5k<br/><i>1 per 4 Iron <br/>x 12 trades <br/>x 2 times/day <br/>x 5.5 (11 min/day) <br/>x 50 villagers</i> | ~13k<br/><i>2 per Emerald <br/>x 12 trades <br/>x 2 times/day <br/>x 5.5 (11 min/day) <br/>x 50 villagers</i> | 1.2h | <ul><li>No AFK</li><li>Requires >26k Iron/h (an average 4x Iron farm with 12 villagers produces ~1.5k Iron/h)</li><li>May cause lag as villagers need a lot of performance</li></ul> |
