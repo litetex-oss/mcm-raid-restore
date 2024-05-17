@@ -16,7 +16,7 @@ Restores the raid mechanic like it was in 1.20, which makes raid farms work agai
 
 Raids [in 1.21](https://minecraft.wiki/w/Java_Edition_24w13a) got significantly changed and it's no longer possible to create a stacking raid farm.
 
-→ [More details, comparisons and arguments](https://github.com/litetex-oss/mcm-raid-restore/blob/dev/MOTIVATION.md).
+See also: [More details, comparisons and arguments](https://github.com/litetex-oss/mcm-raid-restore/blob/dev/MOTIVATION.md)
 
 <!-- modrinth_exclude.start -->
 
