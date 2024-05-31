@@ -10,8 +10,6 @@
 
 Restores the raid mechanic like it was in 1.20, which makes raid farms work again.
 
-<i>Note that this mod is still in a preview phase as 1.21 is not released yet</i>
-
 ## Motivation/Why does this mod exist?
 
 Raids [in 1.21](https://minecraft.wiki/w/Java_Edition_24w13a) got significantly changed and it's no longer possible to create a stacking raid farm.
