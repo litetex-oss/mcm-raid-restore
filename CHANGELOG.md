@@ -1,5 +1,5 @@
-# 0.2.0
-* Targeting now 1.21 Snapshots (currently 24w18a)
+# 0.2.x
+* Now targets 1.21 Snapshots
 
 # 0.1.1
 * Target version is now 1.20.6
