@@ -1,3 +1,6 @@
+# 1.0.0
+* Now targets the 1.21 release
+
 # 0.2.x
 * Now targets 1.21 Snapshots
 
