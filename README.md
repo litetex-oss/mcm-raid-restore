@@ -8,7 +8,7 @@
 
 # Raid Restorer
 
-Restores the raid mechanic like it was in 1.20, which makes raid farms work again.
+Restores the raid mechanic like it was in 1.20 - makes (stacked) raid farms work again
 
 ## Motivation/Why does this mod exist?
 
