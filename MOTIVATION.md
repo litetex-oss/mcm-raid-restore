@@ -32,7 +32,7 @@ Although no explicit reason have been stated why stacked raid farms have been ne
 IMHO this is the wrong way to go, as this change just causes negative effects:
 1. It makes the game harder: "Very advanced players" (that need a lot of resources) now have no viable alternative. Do you like to mine/trade with villagers for hours or AFK for a lot longer? No? Well in 1.21 you have to. This can be very demotivating.
 2. Stacked raid farms may be relatively easy to build (it still takes some hours to build them), but only so because (other) people did a lot of research and engineering on that mechanic.
-3. Just because the mechanic exists doesn't mean that you HAVE to use it. I bet that most casual players don't even know/care about it. You can play the game in the way that you like.<br/>So I kind of don't understand why some people that complain about how other people play the game now get what they want despite having no positive effects for them and just bad ones for others.
+3. Just because the mechanic exists doesn't mean that you HAVE to use it. I bet that most casual players don't even know/care about it. You can play the game in the way that you like.<br/>So I kind of don't understand why some people - that complain about how other people play the game - now get what they want despite having no positive effects for them and just bad ones for others.
 
 <details><summary>The same opinion is also expressed by others</summary>
 
