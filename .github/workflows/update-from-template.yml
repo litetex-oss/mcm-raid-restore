@@ -117,7 +117,7 @@ jobs:
           find . -type f \
             -not -path "./.git/**" \
             -not -path "./.github/workflows/update-from-template.yml" -print0 \
-            | xargs -0 sed -i "s/template-placeholder/${GITHUB_REPOSITORY#*/}/g"
+            | xargs -0 sed -i "s/mcm-raid-restore/${GITHUB_REPOSITORY#*/}/g"
 
           git status
           git add --all
