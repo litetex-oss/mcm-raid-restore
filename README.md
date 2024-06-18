@@ -10,6 +10,12 @@
 
 Restores the raid mechanic like it was in 1.20 - makes (stacked) raid farms work again
 
+<details><summary>Showcase</summary>
+
+[Showcase](https://github.com/litetex-oss/mcm-raid-restore/assets/40789489/eec2998c-00ad-4f8b-ac66-219fea0d5107)
+
+</details>
+
 ## Motivation/Why does this mod exist?
 
 Raids [in 1.21](https://minecraft.wiki/w/Java_Edition_24w13a) got significantly changed and it's no longer possible to create a stacking raid farm.
