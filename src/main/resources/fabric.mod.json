@@ -8,6 +8,7 @@
     "litetex"
   ],
   "contact": {
+    "homepage": "https://github.com/litetex-oss/mcm-raid-restore",
     "sources": "https://github.com/litetex-oss/mcm-raid-restore",
     "issues": "https://github.com/litetex-oss/mcm-raid-restore/issues"
   },
