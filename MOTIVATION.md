@@ -18,14 +18,14 @@ How do you get those resources in 1.21+?
 | Method | Items/h | Emeralds/h | Redstone/h | Time to fill Redstone block shulkerbox | Notes |
 | --- |  --- | --- | --- | --- | --- |
 | [Raid farm](https://www.youtube.com/watch?v=hhOXu1HRSq0) | ~13k | ~1k | ~6.5k | 2.5h | <ul><li>Stacking Raid farms are no longer possible</li><li>Requires collecting and drinking Ominous Bottles (~2s)</li><li>Harder to AFK as bottle needs to be consumed + Killing mobs</li><li>Requires a beacon/regeneration to not starve to death</li><li>Additional count down of Raid omen (30s)</li><li>A raid cycle is roughly ~2mins in comparison to ~1m30s in 1.20 → 1.21 farm has an estimated 75% performance of 1.20</li></ul>
-| Witch farm <sup>[24w20a](https://minecraft.wiki/w/Java_Edition_24w20a)</sup> | 12-20k | - | 10k-14k | ~1.5h | <ul><li>Now always drop 4-8 redstone<ul><li>``x6`` improvement without looting<br/>``Ø 1 → 6``</li><li>``x3`` improvement with looting<br/>``Ø 2.5 → 7.5``</li><li>``x8`` increased drop chance:<br/>``12.5% → 100%``</li></ul></li></ul> |
+| Witch farm <sup>[24w20a](https://minecraft.wiki/w/Java_Edition_24w20a)</sup> | ~10k | - | ~8k | 2h | <ul><li>Now always drop 4-8 redstone<ul><li>``x6`` improvement without looting<br/>``Ø 1 → 6``</li><li>``x3`` improvement with looting<br/>``Ø 2.5 → 7.5``</li><li>``x8`` increased drop chance:<br/>``12.5% → 100%``</li></ul></li></ul> |
 | [Stacking Raid Farm](https://www.youtube.com/watch?v=n3mOlrMGjUg) <sup>using this mod</sup> | 243k | 56k | ~120k | ~8min | only works with this mod |
 
 ### Conclusion for 1.21
 As we can see without stacking Raid farms collecting these resources takes a lot longer or becomes way harder (no AFK).
 
 Update [24w20a](https://minecraft.wiki/w/Java_Edition_24w20a):<br/>
-Witch farms got buffed by a factor of up to 24, which makes redstone farming now more viable.
+Witch farms got buffed by a factor of around 24, which makes redstone farming now more viable.
 
 ## The nerf itself
 Although no explicit reason have been stated why stacked raid farms have been nerfed (they could have just kept the Bad Omen mechanic, maybe shorten the effect duration when killing a Raider to ~3 minutes - from 100 - and drop the bottle additionally), it's likely caused by the fact that parts of the community are complaining that these are too "overpowered/cheaty/illegal". (Quite the same happened for AFK fish farms in 1.16 - but you had Villager trading as an viable alternative)
