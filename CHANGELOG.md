@@ -1,3 +1,7 @@
+# 1.1.0 (Unreleased)
+* Now targeting 1.21.2
+* Fix compilation due to changed method names
+
 # 1.0.0
 * Now targets the 1.21 release
 

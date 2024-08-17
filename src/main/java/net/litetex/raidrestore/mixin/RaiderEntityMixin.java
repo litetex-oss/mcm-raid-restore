@@ -44,7 +44,7 @@ public abstract class RaiderEntityMixin
             if(!itemStack.isEmpty()
                 && ItemStack.areEqual(
                 itemStack,
-                Raid.getOminousBanner(current.getRegistryManager()
+                Raid.createOminousBanner(current.getRegistryManager()
                     .getWrapperOrThrow(RegistryKeys.BANNER_PATTERN))))
             {
                 final Entity attacker = damageSource.getAttacker();
