@@ -1,0 +1,70 @@
+name: 🐞 Bug
+description: Create a bug report for something that is broken
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a bug.
+
+        Please fill in as much information as possible about your bug so that we don't have to play "information ping-pong" and can help you immediately.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I am able to reproduce the bug with the [latest version](https://github.com/litetex-oss/mcm-raid-restore/releases/latest)"
+          required: true
+        - label: "I made sure that there are *no existing issues* - [open](https://github.com/litetex-oss/mcm-raid-restore/issues) or [closed](https://github.com/litetex-oss/mcm-raid-restore/issues?q=is%3Aissue+is%3Aclosed) - which I could contribute my information to."
+          required: true
+        - label: "I have taken the time to fill in all the required details. I understand that the bug report will be dismissed otherwise."
+          required: true
+
+  - type: checkboxes
+    id: quick-toubleshooting
+    attributes:
+      label: "Quick Troubleshooting Guide"
+      options:
+        - label: "Are you using the correct version of minecraft for this version of the mod?"
+        - label: "Did you install the mod correctly? Does it e.g. show up in the Mod Menu?"
+        - label: "Are there any other mods installed that might affect this mod?"
+        - label: "Does the mod work if all other mods are disabled?"
+        - label: "Does the mod work in another world?"
+        - label: |
+            Are there any warnings related to the mod when launching the game? 
+            (Log output can be enabled in the Minecraft launcher under 
+            Settings (bottom left) > General > Minecraft: Java Edition settings → Check "Open output log when Minecraft: Java Edition starts")"
+
+  - type: input
+    id: app-version
+    attributes:
+      label: Affected version
+      description: "In which version did you encounter the bug?"
+      placeholder: "x.x.x"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce the bug
+      description: |
+        What did you do for the bug to show up?
+
+        If you can't cause the bug to show up again reliably (and hence don't have a proper set of steps to give us), please still try to give as many details as possible on how you think you encountered the bug.
+      placeholder: |
+        Example:
+        1. Create a new installation/profile of Minecraft version 1.XX
+        2. Install the following mods: ...
+        3. Play in the following world: *Link to world download link here*
+        4. ... is not working
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional information
+      description: |
+        Any other relevant information you'd like to include for example a video showing the problem.

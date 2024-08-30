@@ -1,3 +1,9 @@
+# 1.1.x
+* Now targeting 1.21.2
+* Restore old raid behavior
+  * Reverts "bugfixes" [MC-274911](https://bugs.mojang.com/browse/MC-274911) and [MC-275279](https://bugs.mojang.com/browse/MC-275279)
+* Fix compilation
+
 # 1.0.0
 * Now targets the 1.21 release
 

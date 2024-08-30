@@ -7,7 +7,8 @@
     "BadOmenStatusEffectMixin",
     "RaiderEntityMixin",
     "RaiderManagerMixin",
-    "RaidMixin"
+    "RaidStartMixin",
+    "RaidTickMixin"
   ],
   "injectors": {
     "defaultRequire": 1

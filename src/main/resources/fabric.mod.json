@@ -8,6 +8,7 @@
     "litetex"
   ],
   "contact": {
+    "homepage": "https://github.com/litetex-oss/mcm-raid-restore",
     "sources": "https://github.com/litetex-oss/mcm-raid-restore",
     "issues": "https://github.com/litetex-oss/mcm-raid-restore/issues"
   },
@@ -17,8 +18,9 @@
   "mixins": [
     "raid-restore.mixins.json"
   ],
+  "accessWidener": "raid-restore.accesswidener",
   "recommends": {
     "fabricloader": ">=${loader_version}",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "~${minecraft_version}"
   }
 }

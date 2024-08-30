@@ -31,7 +31,7 @@ public abstract class RaiderEntityMixin
     @Inject(method = "onDeath",
         at = @At(value = "INVOKE",
             target = "Lnet/minecraft/entity/mob/PatrolEntity;onDeath(Lnet/minecraft/entity/damage/DamageSource;)V"))
-    @SuppressWarnings({"UnreachableCode", "java:S3776", "checkstyle:MagicNumber"})
+    @SuppressWarnings({"UnreachableCode", "java:S3776", "java:S6320", "checkstyle:MagicNumber"})
     protected void onDeath(final DamageSource damageSource, final CallbackInfo ci)
     {
         final RaiderEntity current = (RaiderEntity)(Object)this;
@@ -44,8 +44,8 @@ public abstract class RaiderEntityMixin
             if(!itemStack.isEmpty()
                 && ItemStack.areEqual(
                 itemStack,
-                Raid.getOminousBanner(current.getRegistryManager()
-                    .getWrapperOrThrow(RegistryKeys.BANNER_PATTERN))))
+                Raid.createOminousBanner(current.getRegistryManager()
+                    .getOrThrow(RegistryKeys.BANNER_PATTERN))))
             {
                 final Entity attacker = damageSource.getAttacker();
                 PlayerEntity attackingPlayer = null;

@@ -8,7 +8,13 @@
 
 # Raid Restorer
 
-Restores the raid mechanic like it was in 1.20, which makes raid farms work again.
+Restores the raid mechanic like it was in 1.20 - makes (stacked) raid farms work again
+
+<details><summary>Showcase</summary>
+
+[Showcase](https://github.com/litetex-oss/mcm-raid-restore/assets/40789489/eec2998c-00ad-4f8b-ac66-219fea0d5107)
+
+</details>
 
 ## Motivation/Why does this mod exist?
 
