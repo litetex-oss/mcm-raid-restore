@@ -7,9 +7,11 @@ import java.util.UUID;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Blocks;
@@ -40,16 +42,19 @@ public abstract class RaidTickMixin
 	@Unique
 	private static final int PRE_RAID_TICKS = 300;
 	
-	/**
-	 * @author litetex
-	 * @reason Restore 1.20 Raid behavior
-	 */
-	@Overwrite
+	@Inject(
+		method = "tick",
+		at = @At("HEAD"),
+		cancellable = true,
+		// Increment order slightly to improve compatibility with Lithium
+		// https://github.com/CaffeineMC/lithium-fabric/blob/mc1.21.1-0.13.0/src/main/java/me/jellysquid/mods/lithium/mixin/ai/raid/RaidMixin.java
+		order = 1100)
 	@SuppressWarnings({"deprecation", "java:S3776", "java:S6541", "checkstyle:MethodLength"})
-	public void tick()
+	public void tick(final CallbackInfo ci)
 	{
 		if(this.hasStopped())
 		{
+			ci.cancel();
 			return;
 		}
 		
@@ -61,6 +66,7 @@ public abstract class RaidTickMixin
 			if(this.world.getDifficulty() == Difficulty.PEACEFUL)
 			{
 				this.invalidate();
+				ci.cancel();
 				return;
 			}
 			
@@ -71,6 +77,7 @@ public abstract class RaidTickMixin
 			
 			if(!this.active)
 			{
+				ci.cancel();
 				return;
 			}
 			
@@ -95,6 +102,7 @@ public abstract class RaidTickMixin
 			if(this.ticksActive >= RAID_TIMEOUT_TICKS)
 			{
 				this.invalidate();
+				ci.cancel();
 				return;
 			}
 			
@@ -108,6 +116,7 @@ public abstract class RaidTickMixin
 					{
 						this.preRaidTicks = PRE_RAID_TICKS;
 						this.bar.setName(EVENT_TEXT);
+						ci.cancel();
 						return;
 					}
 				}
@@ -235,6 +244,7 @@ public abstract class RaidTickMixin
 			if(this.finishCooldown >= 600)
 			{
 				this.invalidate();
+				ci.cancel();
 				return;
 			}
 			
@@ -254,6 +264,8 @@ public abstract class RaidTickMixin
 			}
 		}
 		// endregion
+		
+		ci.cancel();
 	}
 	
 	@Unique
