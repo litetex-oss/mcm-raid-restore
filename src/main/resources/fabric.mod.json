@@ -18,6 +18,7 @@
   "mixins": [
     "raid-restore.mixins.json"
   ],
+  "accessWidener": "raid-restore.accesswidener",
   "recommends": {
     "fabricloader": ">=${loader_version}",
     "minecraft": "~${minecraft_version}"

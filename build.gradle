@@ -19,6 +19,10 @@ base {
     archivesName = project.archives_base_name
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/raid-restore.accesswidener")
+}
+
 // https://github.com/gradle/gradle/issues/27035
 configurations.checkstyle {
     resolutionStrategy.capabilitiesResolution.withCapability("com.google.collections:google-collections") {
