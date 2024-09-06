@@ -22,5 +22,13 @@
   "recommends": {
     "fabricloader": ">=${loader_version}",
     "minecraft": "~${minecraft_version}"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.github_releases": "https://github.com/litetex-oss/mcm-raid-restore/releases",
+        "modmenu.modrinth": "https://modrinth.com/mod/raid-restore"
+      }
+    }
   }
 }
