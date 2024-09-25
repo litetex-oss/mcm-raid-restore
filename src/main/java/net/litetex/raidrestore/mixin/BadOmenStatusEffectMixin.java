@@ -17,13 +17,13 @@ public abstract class BadOmenStatusEffectMixin
 {
     @Inject(method = "applyUpdateEffect", at = @At("HEAD"), cancellable = true)
     protected void applyUpdateEffect(
+        final ServerWorld world,
         final LivingEntity entity,
         final int amplifier,
         final CallbackInfoReturnable<Boolean> cir)
     {
         if(entity instanceof final ServerPlayerEntity player && !player.isSpectator())
         {
-            final ServerWorld world = player.getServerWorld();
             final BlockPos playerBlockPos = player.getBlockPos();
             if(world.getDifficulty() != Difficulty.PEACEFUL
                 && world.isNearOccupiedPointOfInterest(playerBlockPos))
