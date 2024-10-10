@@ -26,7 +26,7 @@ You should have the following things installed:
     * [Save Actions](https://plugins.jetbrains.com/plugin/22113) - Provides save actions, like running the formatter or adding ``final`` to fields
     * [SonarLint](https://plugins.jetbrains.com/plugin/7973-sonarlint) - CodeStyle/CodeAnalysis
     * [Checkstyle-IDEA](https://plugins.jetbrains.com/plugin/1065-checkstyle-idea) - CodeStyle/CodeAnalysis
-    * [Minecraft Development](https://plugins.jetbrains.com/plugin/8327-minecraft-development) (recommended) - For better Mod development
+    * [Minecraft Development](https://plugins.jetbrains.com/plugin/8327-minecraft-development) (recommended) - For better mod development
   * Import the project
   * Ensure that everything is encoded in ``UTF-8``
   * Ensure that the JDK/Java-Version is correct
