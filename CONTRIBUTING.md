@@ -18,7 +18,7 @@ We also encourage you to read the [contribution instructions by GitHub](https://
 You should have the following things installed:
 * Git
 * Java 21 - should be as unmodified as possible (Recommended: [Eclipse Adoptium](https://adoptium.net/temurin/releases/))
-* Maven (Note that the [Maven Wrapper](https://maven.apache.org/wrapper/) is shipped with the repo)
+* Gradle (Note that the [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) is shipped with the repo)
 
 ### Recommended setup
 * Install ``IntelliJ`` (Community Edition is sufficient)
@@ -26,7 +26,7 @@ You should have the following things installed:
     * [Save Actions](https://plugins.jetbrains.com/plugin/22113) - Provides save actions, like running the formatter or adding ``final`` to fields
     * [SonarLint](https://plugins.jetbrains.com/plugin/7973-sonarlint) - CodeStyle/CodeAnalysis
     * [Checkstyle-IDEA](https://plugins.jetbrains.com/plugin/1065-checkstyle-idea) - CodeStyle/CodeAnalysis
-    * [Minecraft Development](https://plugins.jetbrains.com/plugin/8327-minecraft-development) (recommended) - For better Modding development
+    * [Minecraft Development](https://plugins.jetbrains.com/plugin/8327-minecraft-development) (recommended) - For better Mod development
   * Import the project
   * Ensure that everything is encoded in ``UTF-8``
   * Ensure that the JDK/Java-Version is correct
