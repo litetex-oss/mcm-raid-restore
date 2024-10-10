@@ -20,6 +20,7 @@ base {
 }
 
 loom {
+    accessWidenerPath = file("src/main/resources/mod.accesswidener")
 }
 
 // https://github.com/gradle/gradle/issues/27035
