@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.7.4'
+    id 'fabric-loom' version '1.8.10'
     id 'maven-publish'
     id 'checkstyle'
     id 'org.sonarqube' version '5.1.0.4882'
@@ -7,7 +7,7 @@ plugins {
 }
 
 ext {
-    checkstyleVersion = '10.18.1'
+    checkstyleVersion = '10.18.2'
     // Derive version from yarn
     minecraft_version = project.yarn_mappings.split("\\+")[0]
 }
@@ -20,7 +20,7 @@ base {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/raid-restore.accesswidener")
+    accessWidenerPath = file("src/main/resources/mod.accesswidener")
 }
 
 // https://github.com/gradle/gradle/issues/27035
