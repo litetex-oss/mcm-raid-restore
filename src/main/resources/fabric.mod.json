@@ -16,9 +16,9 @@
   "icon": "assets/icon.png",
   "environment": "*",
   "mixins": [
-    "mcm-raid-restore.mixins.json"
+    "raid-restore.mixins.json"
   ],
-  "accessWidener": "mcm-raid-restore.accesswidener",
+  "accessWidener": "raid-restore.accesswidener",
   "recommends": {
     "fabricloader": ">=${loader_version}",
     "minecraft": "~${minecraft_version}"
