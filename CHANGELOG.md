@@ -1,3 +1,6 @@
+# 1.1.4
+* Fix "Non-unique Mixin config name mod.mixins.json used by the mods"
+
 # 1.1.x
 * Now targeting 1.21.2
 * Restore old raid behavior
