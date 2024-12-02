@@ -28,6 +28,9 @@
       "matchPackagePatterns": [
         "^net.fabricmc"
       ],
+      "excludePackagePatterns": [
+        "^net.fabricmc:yarn"
+      ],
       "datasources": [
         "maven"
       ],
@@ -36,14 +39,14 @@
       ]
     },
     {
-      "description": "Yarn versioning",
+      "description": "Disable yarn as it has custom management due to non semver versioning",
       "matchPackagePatterns": [
         "^net.fabricmc:yarn"
       ],
       "datasources": [
         "maven"
       ],
-      "allowedVersions": "/^1\\.[0-9]{1,2}/"
+      "enabled": false
     }
   ]
 }
