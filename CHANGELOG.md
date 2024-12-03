@@ -1,3 +1,6 @@
+# 1.1.5
+* Now targeting 1.21.4
+
 # 1.1.4
 * Fix "Non-unique Mixin config name mod.mixins.json used by the mods"
 
