@@ -43,7 +43,7 @@
       "datasources": [
         "maven"
       ],
-      "allowedVersions": "/^1\\.[0-9]{1,2}/"
+      "allowedVersions": "/^1\\.[0-9]{1,2}(\\.[0-9]{1,2})?\\+build\\.[0-9]{1,2}$/"
     }
   ]
 }
