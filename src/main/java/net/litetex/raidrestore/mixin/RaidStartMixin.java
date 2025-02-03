@@ -25,8 +25,8 @@ public abstract class RaidStartMixin
 		final StatusEffectInstance statusEffect = player.getStatusEffect(StatusEffects.BAD_OMEN);
 		if(statusEffect != null)
 		{
-			this.badOmenLevel = MathHelper.clamp(
-				this.badOmenLevel + statusEffect.getAmplifier() + 1,
+			this.raidOmenLevel = MathHelper.clamp(
+				this.raidOmenLevel + statusEffect.getAmplifier() + 1,
 				0,
 				this.getMaxAcceptableBadOmenLevel());
 		}
@@ -36,7 +36,7 @@ public abstract class RaidStartMixin
 	}
 	
 	@Shadow
-	private int badOmenLevel;
+	private int raidOmenLevel;
 	
 	@Shadow
 	public abstract int getMaxAcceptableBadOmenLevel();

@@ -1,7 +1,5 @@
 package net.litetex.raidrestore.mixin;
 
-import java.util.Map;
-
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -9,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.tag.PointOfInterestTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -26,17 +25,6 @@ import net.minecraft.world.poi.PointOfInterestStorage;
 @Mixin(RaidManager.class)
 public abstract class RaiderManagerMixin
 {
-    @Shadow
-    @Final
-    private ServerWorld world;
-    
-    @Shadow
-    protected abstract Raid getOrCreateRaid(ServerWorld world, BlockPos pos);
-    
-    @Shadow
-    @Final
-    private Map<Integer, Raid> raids;
-    
     @SuppressWarnings({"UnreachableCode", "java:S125", "checkstyle:MagicNumber"})
     @Inject(method = "startRaid", at = @At("HEAD"), cancellable = true)
     protected void startRaid(
@@ -44,8 +32,9 @@ public abstract class RaiderManagerMixin
         final BlockPos pos,
         final CallbackInfoReturnable<Raid> cir)
     {
+        final ServerWorld serverWorld = player.getServerWorld();
         if(player.isSpectator()
-            || this.world.getGameRules().getBoolean(GameRules.DISABLE_RAIDS)
+            || serverWorld.getGameRules().getBoolean(GameRules.DISABLE_RAIDS)
             || !player.getWorld().getDimension().hasRaids())
         {
             cir.setReturnValue(null);
@@ -54,7 +43,7 @@ public abstract class RaiderManagerMixin
         
         int i = 0;
         Vec3d vec3d = Vec3d.ZERO;
-        for(final PointOfInterest pointOfInterest : this.world.getPointOfInterestStorage()
+        for(final PointOfInterest pointOfInterest : serverWorld.getPointOfInterestStorage()
             .getInCircle(
                 poiType -> poiType.isIn(PointOfInterestTypeTags.VILLAGE),
                 pos,
@@ -73,9 +62,9 @@ public abstract class RaiderManagerMixin
         boolean startRaid = false;
         if(!raid.hasStarted())
         {
-            if(!this.raids.containsKey(raid.getRaidId()))
+            if(!this.raids.containsValue(raid))
             {
-                this.raids.put(raid.getRaidId(), raid);
+                this.raids.put(this.nextId(), raid);
             }
             startRaid = true;
         }
@@ -107,4 +96,14 @@ public abstract class RaiderManagerMixin
         ((RaidManager)(Object)this).markDirty();
         cir.setReturnValue(raid);
     }
+    
+    @Shadow
+    @Final
+    private Int2ObjectMap<Raid> raids;
+    
+    @Shadow
+    protected abstract int nextId();
+    
+    @Shadow
+    protected abstract Raid getOrCreateRaid(ServerWorld world, BlockPos pos);
 }
