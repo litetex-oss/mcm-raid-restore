@@ -39,14 +39,14 @@
       ]
     },
     {
-      "description": "Disable yarn as it has custom management due to non semver versioning",
+      "description": "Yarn versioning",
       "matchPackagePatterns": [
         "^net.fabricmc:yarn"
       ],
       "datasources": [
         "maven"
       ],
-      "enabled": false
+      "allowedVersions": "/^1\\.[0-9]{1,2}(\\.[0-9]{1,2})?\\+build\\.[0-9]{1,2}$/"
     }
   ]
 }
