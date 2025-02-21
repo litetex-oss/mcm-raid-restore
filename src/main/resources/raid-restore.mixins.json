@@ -6,7 +6,7 @@
   "mixins": [
     "BadOmenStatusEffectMixin",
     "RaiderEntityMixin",
-    "RaiderManagerMixin",
+    "RaidManagerMixin",
     "RaidStartMixin",
     "RaidTickMixin"
   ],
