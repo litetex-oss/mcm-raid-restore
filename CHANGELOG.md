@@ -1,3 +1,6 @@
+# 1.1.7
+* [25w07a] Fix compilation
+
 # 1.1.6
 * Now targeting 1.21.5
 * [25w05a] Fix compilation

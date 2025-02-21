@@ -127,7 +127,7 @@ public abstract class RaidTickMixin
 					boolean needNewRaiderSpawnLocation =
 						!hasPreCalculatedRaiderSpawnLocation && this.preRaidTicks % 5 == 0;
 					if(hasPreCalculatedRaiderSpawnLocation
-						&& !serverWorld.shouldTickEntity(this.preCalculatedRaidersSpawnLocation.get()))
+						&& !serverWorld.shouldTickEntityAt(this.preCalculatedRaidersSpawnLocation.get()))
 					{
 						needNewRaiderSpawnLocation = true;
 					}
@@ -318,7 +318,7 @@ public abstract class RaidTickMixin
 					mutable.getZ() - offset,
 					mutable.getX() + offset,
 					mutable.getZ() + offset)
-					&& serverWorld.shouldTickEntity(mutable)
+					&& serverWorld.shouldTickEntityAt(mutable)
 					&& (
 					SpawnRestriction.getLocation(EntityType.RAVAGER)
 						.isSpawnPositionOk(serverWorld, mutable, EntityType.RAVAGER)
