@@ -32,7 +32,7 @@ See also: [More details, comparisons and arguments](https://github.com/litetex-o
 Add the following to ``build.gradle``:
 ```groovy
 dependencies {
-    modImplementation 'net.litetex.mcm:template-placeholder:<version>'
+    modImplementation 'net.litetex.mcm:raid-restore:<version>'
     // Further documentation: https://wiki.fabricmc.net/documentation:fabric_loom
 }
 ```
