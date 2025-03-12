@@ -6,6 +6,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
     - uses: actions/checkout@v4
     
@@ -17,7 +18,7 @@ jobs:
         cache: 'gradle'
 
     - name: Build and publish
-      run: ./gradlew clean build modrinth --info
+      run: ./gradlew clean build modrinth --info --stacktrace
       env:
         MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
         MODRINTH_VERSION_TYPE: 'alpha'
@@ -27,5 +28,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: mod-files
-        path: build/libs/*.jar
+        path: |
+          build/devlibs/*-sources.jar
+          build/libs/*.jar
+          !build/libs/*-sources.jar
+          !build/libs/*-javadoc.jar
         if-no-files-found: error
