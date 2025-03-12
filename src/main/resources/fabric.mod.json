@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "id": "raid-restore",
+  "id": "${id}",
   "version": "${version}",
-  "name": "Raid Restorer",
-  "description": "Restores the original raid mechanic like it was in 1.20",
+  "name": "${name}",
+  "description": "${desc}",
   "authors": [
     "litetex"
   ],
   "contact": {
-    "homepage": "https://github.com/litetex-oss/mcm-raid-restore",
-    "sources": "https://github.com/litetex-oss/mcm-raid-restore",
-    "issues": "https://github.com/litetex-oss/mcm-raid-restore/issues"
+    "homepage": "https://github.com/litetex-oss/mcm-${id}",
+    "sources": "https://github.com/litetex-oss/mcm-${id}",
+    "issues": "https://github.com/litetex-oss/mcm-${id}/issues"
   },
-  "license": "Apache-2.0",
+  "license": "${license_spdx_id}",
   "icon": "assets/icon.png",
   "environment": "*",
   "mixins": [
@@ -26,8 +26,8 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.github_releases": "https://github.com/litetex-oss/mcm-raid-restore/releases",
-        "modmenu.modrinth": "https://modrinth.com/mod/raid-restore"
+        "modmenu.github_releases": "https://github.com/litetex-oss/mcm-${id}/releases",
+        "modmenu.modrinth": "https://modrinth.com/mod/${id}"
       }
     }
   }
