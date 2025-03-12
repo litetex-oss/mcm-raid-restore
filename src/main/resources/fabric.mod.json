@@ -1,18 +1,18 @@
 {
   "schemaVersion": 1,
-  "id": "template-placeholder",
+  "id": "${id}",
   "version": "${version}",
-  "name": "template-placeholder",
-  "description": "template-placeholder",
+  "name": "${name}",
+  "description": "${desc}",
   "authors": [
     "litetex"
   ],
   "contact": {
-    "homepage": "https://github.com/litetex-oss/template-placeholder",
-    "sources": "https://github.com/litetex-oss/template-placeholder",
-    "issues": "https://github.com/litetex-oss/template-placeholder/issues"
+    "homepage": "https://github.com/litetex-oss/mcm-${id}",
+    "sources": "https://github.com/litetex-oss/mcm-${id}",
+    "issues": "https://github.com/litetex-oss/mcm-${id}/issues"
   },
-  "license": "Apache-2.0",
+  "license": "${license_spdx_id}",
   "icon": "assets/icon.png",
   "environment": "*",
   "mixins": [
@@ -26,8 +26,8 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.github_releases": "https://github.com/litetex-oss/template-placeholder/releases",
-        "modmenu.modrinth": "https://modrinth.com/mod/template-placeholder"
+        "modmenu.github_releases": "https://github.com/litetex-oss/mcm-${id}/releases",
+        "modmenu.modrinth": "https://modrinth.com/mod/${id}"
       }
     }
   }
