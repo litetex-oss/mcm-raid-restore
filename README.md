@@ -20,7 +20,7 @@ TODO
 Add the following to ``build.gradle``:
 ```groovy
 dependencies {
-    modImplementation 'net.litetex.mcm:cape-provider:<version>'
+    modImplementation 'net.litetex.mcm:template-placeholder:<version>'
     // Further documentation: https://wiki.fabricmc.net/documentation:fabric_loom
 }
 ```
