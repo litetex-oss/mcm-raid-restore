@@ -16,9 +16,9 @@
   "icon": "assets/icon.png",
   "environment": "*",
   "mixins": [
-    "template-placeholder.mixins.json"
+    "raid-restore.mixins.json"
   ],
-  "accessWidener": "template-placeholder.accesswidener",
+  "accessWidener": "raid-restore.accesswidener",
   "recommends": {
     "fabricloader": ">=${loader_version}",
     "minecraft": "~${minecraft_version}"
