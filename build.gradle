@@ -1,0 +1,164 @@
+plugins {
+    id 'fabric-loom' version '1.10.4'
+    id 'maven-publish'
+    id 'signing'
+    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
+    id 'checkstyle'
+    id 'org.sonarqube' version '6.0.1.5171'
+    id 'com.modrinth.minotaur' version '2.8.7'
+}
+
+ext {
+    checkstyleVersion = '10.21.4'
+    // Derive version from yarn
+    minecraft_version = project.yarn_mappings.split("\\+")[0]
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/template-placeholder.accesswidener")
+}
+
+// https://github.com/gradle/gradle/issues/27035
+configurations.checkstyle {
+    resolutionStrategy.capabilitiesResolution.withCapability("com.google.collections:google-collections") {
+        select("com.google.guava:guava:0")
+    }
+}
+
+dependencies {
+    checkstyle "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"
+
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+}
+
+processResources {
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version,
+                "id": project.archives_base_name,
+                "name": project.mod_name,
+                "desc": project.mod_desc,
+                "license_spdx_id": project.mod_license_spdx_id,
+                "minecraft_version": minecraft_version,
+                "loader_version": project.loader_version
+    }
+}
+
+checkstyle {
+    configDirectory = file("$rootProject.projectDir/.config/checkstyle")
+    ignoreFailures = false
+    showViolations = true
+    toolVersion = checkstyleVersion
+}
+
+tasks.withType(Checkstyle).configureEach {
+    enabled = project.hasProperty("checkstyleEnabled");
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
+java {
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
+    withJavadocJar()
+
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+javadoc {
+    options.addBooleanOption('html5', true)
+    options.addBooleanOption('Xdoclint:none', true)
+    options.addBooleanOption('quiet', true)
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archivesBaseName}"}
+    }
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        create("mavenJava", MavenPublication) {
+            artifactId = project.archives_base_name
+            from components.java
+            pom {
+                name = project.mod_name
+                description = project.mod_desc
+                url = 'https://github.com/litetex-oss/mcm-' + artifactId
+                licenses {
+                    license {
+                        name = project.mod_license_spdx_id
+                        url = project.mod_license_url
+                        distribution = 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        name = 'litetex'
+                        url = 'https://github.com/litetex'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/litetex-oss/' + artifactId + '.git'
+                    url = 'https://github.com/litetex-oss/mcm-' + artifactId
+                }
+            }
+        }
+    }
+
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
+    repositories {
+        // Add repositories to publish to here.
+        // Notice: This block does NOT have the same function as the block in the top level.
+        // The repositories here will be used for publishing your artifact, not for
+        // retrieving dependencies.
+    }
+}
+
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
+// https://github.com/modrinth/minotaur/blob/master/README.md#available-properties
+modrinth {
+    // token defaults to "MODRINTH_TOKEN" environment variable
+    projectId = project.archives_base_name
+    // Default/empty value is release
+    versionType = System.getenv("MODRINTH_VERSION_TYPE")
+    uploadFile = remapJar
+    additionalFiles = [sourcesJar]
+    syncBodyFrom = rootProject.file("README.md").text
+    changelog = System.getenv("MODRINTH_CHANGELOG_TEXT")
+}
+
+signing {
+    def signingKey = System.getenv("MAVEN_GPG_PRIVATE_KEY")
+    def signingPassword = System.getenv("MAVEN_GPG_PASSPHRASE")
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign publishing.publications.mavenJava
+}
+
+// Docs: https://github.com/gradle-nexus/publish-plugin
+// Publish using publishToSonatype closeAndReleaseSonatypeStagingRepository
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            username = System.getenv("S01_OSS_SONATYPE_MAVEN_USERNAME")
+            password = System.getenv("S01_OSS_SONATYPE_MAVEN_TOKEN")
+        }
+    }
+}
