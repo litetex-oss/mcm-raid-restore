@@ -34,7 +34,7 @@
       "datasources": [
         "maven"
       ],
-      "defaultRegistryUrls": [
+      "registryUrls": [
         "https://maven.fabricmc.net/"
       ]
     },

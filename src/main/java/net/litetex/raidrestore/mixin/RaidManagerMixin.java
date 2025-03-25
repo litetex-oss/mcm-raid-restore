@@ -23,7 +23,7 @@ import net.minecraft.world.poi.PointOfInterestStorage;
 
 
 @Mixin(RaidManager.class)
-public abstract class RaiderManagerMixin
+public abstract class RaidManagerMixin
 {
     @SuppressWarnings({"UnreachableCode", "java:S125", "checkstyle:MagicNumber"})
     @Inject(method = "startRaid", at = @At("HEAD"), cancellable = true)
