@@ -34,7 +34,7 @@ import net.minecraft.world.Heightmap;
 
 
 @Mixin(Raid.class)
-@SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:StaticVariableName", "java:S3008"})
+@SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:StaticVariableName", "java:S3008", "PMD.GodClass"})
 public abstract class RaidTickMixin
 {
 	@Unique
@@ -49,7 +49,14 @@ public abstract class RaidTickMixin
 		// Increment order slightly to improve compatibility with Lithium
 		// https://github.com/CaffeineMC/lithium-fabric/blob/mc1.21.1-0.13.0/src/main/java/me/jellysquid/mods/lithium/mixin/ai/raid/RaidMixin.java
 		order = 1100)
-	@SuppressWarnings({"deprecation", "java:S3776", "java:S6541", "checkstyle:MethodLength"})
+	@SuppressWarnings({
+		"deprecation",
+		"java:S3776",
+		"java:S6541",
+		"checkstyle:MethodLength",
+		"PMD.CognitiveComplexity",
+		"PMD.CyclomaticComplexity",
+		"PMD.NPathComplexity"})
 	public void tick(final ServerWorld serverWorld, final CallbackInfo ci)
 	{
 		if(this.hasStopped())
