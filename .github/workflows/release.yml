@@ -127,7 +127,7 @@ jobs:
       run: ./gradlew clean build modrinth --info --stacktrace
       env:
         MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
-        MODRINTH_CHANGELOG_TEXT: 'Available at https://github.com/litetex-oss/template-placeholder/blob/dev/CHANGELOG.md'
+        MODRINTH_CHANGELOG_TEXT: 'Available at https://github.com/litetex-oss/mcm-raid-restore/blob/dev/CHANGELOG.md'
 
     - name: Upload release assets
       uses: shogo82148/actions-upload-release-asset@v1
