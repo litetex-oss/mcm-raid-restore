@@ -1,6 +1,6 @@
 # 1.2.0
 * Now targeting 1.21.8
-* Added Gamerule ``raiderBadOmenEffectSec`` to control the duration of the Bad Omen effect that is applied when killing a patrol/raid captain
+* Added Gamerule ``raiderBadOmenEffectSec`` to control the duration of the Bad Omen effect that is applied when killing a patrol/raid captain #229
   * The default is still ``6000`` (100 minutes)
 
 # 1.1.9
