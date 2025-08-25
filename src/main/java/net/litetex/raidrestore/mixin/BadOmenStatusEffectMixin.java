@@ -22,15 +22,17 @@ public abstract class BadOmenStatusEffectMixin
 		final int amplifier,
 		final CallbackInfoReturnable<Boolean> cir)
 	{
-		if(entity instanceof final ServerPlayerEntity player && !player.isSpectator())
+		if(entity instanceof final ServerPlayerEntity player
+			&& !player.isSpectator()
+			&& world.getDifficulty() != Difficulty.PEACEFUL)
 		{
 			final BlockPos playerBlockPos = player.getBlockPos();
-			if(world.getDifficulty() != Difficulty.PEACEFUL
-				&& world.isNearOccupiedPointOfInterest(playerBlockPos))
+			if(world.isNearOccupiedPointOfInterest(playerBlockPos))
 			{
 				world.getRaidManager().startRaid(player, playerBlockPos);
 			}
-			cir.setReturnValue(true);
+			// Returning false here would remove the effect, however this is handled by Raid#start
+			// (to determine the raid level)
 		}
 		cir.setReturnValue(true);
 	}
