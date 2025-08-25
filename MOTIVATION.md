@@ -17,9 +17,9 @@ How do you get those resources in 1.21+?
 ### (New) options in 1.21
 | Method | Items/h | Emeralds/h | Redstone/h | Time to fill Redstone block shulkerbox | Notes |
 | --- |  --- | --- | --- | --- | --- |
-| [Raid farm](https://www.youtube.com/watch?v=hhOXu1HRSq0) | ~13k | ~1k | ~6.5k | 2.5h | <ul><li>Stacking Raid farms are no longer possible</li><li>Requires collecting and drinking Ominous Bottles (~2s)</li><li>Harder to AFK as bottle needs to be consumed + Killing mobs</li><li>Requires a beacon/regeneration to not starve to death</li><li>Additional count down of Raid omen (30s)</li><li>A raid cycle is roughly ~2mins in comparison to ~1m30s in 1.20 → 1.21 farm has an estimated 75% performance of 1.20</li></ul>
-| Witch farm <sup>[24w20a](https://minecraft.wiki/w/Java_Edition_24w20a)</sup> | ~10k | - | ~8k | 2h | <ul><li>Now always drop 4-8 redstone<ul><li>``x6`` improvement without looting<br/>``Ø 1 → 6``</li><li>``x3`` improvement with looting<br/>``Ø 2.5 → 7.5``</li><li>``x8`` increased drop chance:<br/>``12.5% → 100%``</li></ul></li></ul> |
-| [Stacking Raid Farm](https://www.youtube.com/watch?v=n3mOlrMGjUg) <sup>using this mod</sup> | 243k | 56k | ~120k | ~8min | only works with this mod |
+| [Raid farm](https://www.youtube.com/watch?v=Oq47modgU6s) | 2.7k | 1k | 750 | ~22h | <ul><li>Stacking Raid farms are no longer possible</li><li>Requires collecting and drinking Ominous Bottles (~2s)</li><li>Harder to AFK as bottle needs to be consumed + Killing mobs</li><li>Requires a beacon/regeneration to not starve to death</li><li>Additional count down of Raid omen (30s)</li><li>A raid cycle is roughly ~2mins in comparison to ~1m30s in 1.20 → 1.21 farm has an estimated maximum 75% performance of 1.20</li></ul>
+| [Witch farm](https://www.youtube.com/watch?v=xn5FhPuhy8M) <sup>[24w20a](https://minecraft.wiki/w/Java_Edition_24w20a)</sup> | ~10k | - | ~6.4k | 2.5h | <ul><li>Now always drop 4-8 redstone<ul><li>``x24`` improvement without Looting<br/>``Ø 0.25  → 6``</li><li>``x12`` improvement with Looting 3<br/>``Ø 0.625 → 7.5``</li></ul> |
+| [Stacking Raid Farm](https://www.youtube.com/watch?v=n3mOlrMGjUg) <sup>using this mod</sup> | ~188k | 56k | ~65k | ~15min | only works with this mod |
 
 ### Conclusion for 1.21
 As we can see without stacking Raid farms collecting these resources takes a lot longer or becomes way harder (no AFK).

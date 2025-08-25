@@ -225,7 +225,8 @@ public abstract class RaidTickMixin
 						{
 							livingEntity.addStatusEffect(new StatusEffectInstance(
 								StatusEffects.HERO_OF_THE_VILLAGE,
-								48000,
+								// Min x Sec x TPS
+								40 * 60 * 20,
 								this.raidOmenLevel - 1,
 								false,
 								false,
