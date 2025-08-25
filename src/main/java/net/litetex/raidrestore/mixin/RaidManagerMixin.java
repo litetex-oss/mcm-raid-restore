@@ -75,15 +75,12 @@ public abstract class RaidManagerMixin
 		else
 		{
 			player.removeStatusEffect(StatusEffects.BAD_OMEN);
-			// EntityStatus missing
-			// player.networkHandler.sendPacket(new EntityStatusS2CPacket(player, EntityStatuses.ADD_CLOUD_PARTICLES));
 		}
+		
 		if(startRaid)
 		{
 			// More like "prepareStart"...
 			raid.start(player);
-			// EntityStatus missing
-			// player.networkHandler.sendPacket(new EntityStatusS2CPacket(player, EntityStatuses.ADD_CLOUD_PARTICLES));
 			
 			if(!raid.hasSpawned())
 			{
