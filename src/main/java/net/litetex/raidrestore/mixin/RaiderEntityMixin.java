@@ -1,11 +1,14 @@
 package net.litetex.raidrestore.mixin;
 
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.litetex.raidrestore.RaidRestoreGameRules;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.damage.DamageSource;
@@ -49,22 +52,10 @@ public abstract class RaiderEntityMixin
             if(!itemStack.isEmpty()
                 && ItemStack.areEqual(
                 itemStack,
-                Raid.createOminousBanner(current.getRegistryManager()
-                    .getOrThrow(RegistryKeys.BANNER_PATTERN))))
+				Raid.createOminousBanner(current.getRegistryManager().getOrThrow(RegistryKeys.BANNER_PATTERN))))
             {
-                final Entity attacker = damageSource.getAttacker();
-                PlayerEntity attackingPlayer = null;
-                if(attacker instanceof final PlayerEntity playerEntity)
-                {
-                    attackingPlayer = playerEntity;
-                }
-                else if(attacker instanceof final WolfEntity wolfEntity
-                    && wolfEntity.isTamed()
-                    && wolfEntity.getOwner() instanceof final PlayerEntity wolfOwnerPlayerEntity)
-                {
-                    attackingPlayer = wolfOwnerPlayerEntity;
-                }
-                if(attackingPlayer != null)
+				final PlayerEntity attackingPlayer = this.getAttackingPlayer(damageSource);
+				if(attackingPlayer != null)
                 {
                     final StatusEffectInstance statusEffectInstance =
                         attackingPlayer.getStatusEffect(StatusEffects.BAD_OMEN);
@@ -82,8 +73,7 @@ public abstract class RaiderEntityMixin
                     {
                         attackingPlayer.addStatusEffect(new StatusEffectInstance(
                             StatusEffects.BAD_OMEN,
-                            // Min x Sec x TPS
-                            100 * 60 * 20,
+							serverWorld.getGameRules().getInt(RaidRestoreGameRules.RAIDER_BAD_OMEN_EFFECT_SEC) * 20,
                             MathHelper.clamp(amplifier, 0, 4),
                             false,
                             false,
@@ -93,4 +83,21 @@ public abstract class RaiderEntityMixin
             }
         }
     }
+	
+	@Unique
+	private @Nullable PlayerEntity getAttackingPlayer(final DamageSource damageSource)
+	{
+		final Entity attacker = damageSource.getAttacker();
+		if(attacker instanceof final PlayerEntity playerEntity)
+		{
+			return playerEntity;
+		}
+		else if(attacker instanceof final WolfEntity wolfEntity
+			&& wolfEntity.isTamed()
+			&& wolfEntity.getOwner() instanceof final PlayerEntity wolfOwnerPlayerEntity)
+		{
+			return wolfOwnerPlayerEntity;
+		}
+		return null;
+	}
 }

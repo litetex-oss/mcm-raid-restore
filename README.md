@@ -15,6 +15,11 @@ Restores the raid mechanic like it was in 1.20 - makes (stacked) raid farms work
 
 </details>
 
+## Configuration
+
+You can control the duration of the Bad Omen effect that is applied when killing a raid/patrol captain using the ``raiderBadOmenEffectSec`` Gamerule.<br/>
+The default is ``6000`` (100 minutes) like it was in 1.20.
+
 ## Motivation/Why does this mod exist?
 
 Raids [in 1.21](https://minecraft.wiki/w/Java_Edition_24w13a) got significantly changed and it's no longer possible to create a stacking raid farm.

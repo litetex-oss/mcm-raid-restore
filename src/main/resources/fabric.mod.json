@@ -15,6 +15,11 @@
   "license": "${license_spdx_id}",
   "icon": "assets/icon.png",
   "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.litetex.raidrestore.fabric.FabricRaidRestore"
+    ]
+  },
   "mixins": [
     "raid-restore.mixins.json"
   ],
