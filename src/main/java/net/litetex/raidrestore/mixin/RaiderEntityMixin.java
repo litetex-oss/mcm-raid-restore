@@ -28,61 +28,61 @@ import net.minecraft.world.GameRules;
 @Mixin(RaiderEntity.class)
 public abstract class RaiderEntityMixin
 {
-    @Shadow
-    public abstract Raid getRaid();
-    
-    @Inject(method = "onDeath",
-        at = @At(value = "INVOKE",
-            target = "Lnet/minecraft/entity/mob/PatrolEntity;onDeath(Lnet/minecraft/entity/damage/DamageSource;)V"))
-    @SuppressWarnings({
-        "UnreachableCode",
-        "java:S3776",
-        "javabugs:S6320",
-        "checkstyle:MagicNumber",
-        "PMD.CognitiveComplexity"})
-    protected void onDeath(final DamageSource damageSource, final CallbackInfo ci)
-    {
-        final RaiderEntity current = (RaiderEntity)(Object)this;
-        if(current.getWorld() instanceof final ServerWorld serverWorld
-            && current.isPatrolLeader()
-            && this.getRaid() == null
-            && serverWorld.getRaidAt(current.getBlockPos()) == null)
-        {
-            final ItemStack itemStack = current.getEquippedStack(EquipmentSlot.HEAD);
-            if(!itemStack.isEmpty()
-                && ItemStack.areEqual(
-                itemStack,
+	@Shadow
+	public abstract Raid getRaid();
+	
+	@Inject(method = "onDeath",
+		at = @At(value = "INVOKE",
+			target = "Lnet/minecraft/entity/mob/PatrolEntity;onDeath(Lnet/minecraft/entity/damage/DamageSource;)V"))
+	@SuppressWarnings({
+		"UnreachableCode",
+		"java:S3776",
+		"javabugs:S6320",
+		"checkstyle:MagicNumber",
+		"PMD.CognitiveComplexity"})
+	protected void onDeath(final DamageSource damageSource, final CallbackInfo ci)
+	{
+		final RaiderEntity current = (RaiderEntity)(Object)this;
+		if(current.getWorld() instanceof final ServerWorld serverWorld
+			&& current.isPatrolLeader()
+			&& this.getRaid() == null
+			&& serverWorld.getRaidAt(current.getBlockPos()) == null)
+		{
+			final ItemStack itemStack = current.getEquippedStack(EquipmentSlot.HEAD);
+			if(!itemStack.isEmpty()
+				&& ItemStack.areEqual(
+				itemStack,
 				Raid.createOminousBanner(current.getRegistryManager().getOrThrow(RegistryKeys.BANNER_PATTERN))))
-            {
+			{
 				final PlayerEntity attackingPlayer = this.getAttackingPlayer(damageSource);
 				if(attackingPlayer != null)
-                {
-                    final StatusEffectInstance statusEffectInstance =
-                        attackingPlayer.getStatusEffect(StatusEffects.BAD_OMEN);
-                    int amplifier = 1;
-                    if(statusEffectInstance != null)
-                    {
-                        amplifier += statusEffectInstance.getAmplifier();
-                        attackingPlayer.removeStatusEffectInternal(StatusEffects.BAD_OMEN);
-                    }
-                    else
-                    {
-                        amplifier--;
-                    }
-                    if(!serverWorld.getGameRules().getBoolean(GameRules.DISABLE_RAIDS))
-                    {
-                        attackingPlayer.addStatusEffect(new StatusEffectInstance(
-                            StatusEffects.BAD_OMEN,
+				{
+					final StatusEffectInstance statusEffectInstance =
+						attackingPlayer.getStatusEffect(StatusEffects.BAD_OMEN);
+					int amplifier = 1;
+					if(statusEffectInstance != null)
+					{
+						amplifier += statusEffectInstance.getAmplifier();
+						attackingPlayer.removeStatusEffectInternal(StatusEffects.BAD_OMEN);
+					}
+					else
+					{
+						amplifier--;
+					}
+					if(!serverWorld.getGameRules().getBoolean(GameRules.DISABLE_RAIDS))
+					{
+						attackingPlayer.addStatusEffect(new StatusEffectInstance(
+							StatusEffects.BAD_OMEN,
 							serverWorld.getGameRules().getInt(RaidRestoreGameRules.RAIDER_BAD_OMEN_EFFECT_SEC) * 20,
-                            MathHelper.clamp(amplifier, 0, 4),
-                            false,
-                            false,
-                            true));
-                    }
-                }
-            }
-        }
-    }
+							MathHelper.clamp(amplifier, 0, 4),
+							false,
+							false,
+							true));
+					}
+				}
+			}
+		}
+	}
 	
 	@Unique
 	private @Nullable PlayerEntity getAttackingPlayer(final DamageSource damageSource)

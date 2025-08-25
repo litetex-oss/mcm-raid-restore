@@ -15,23 +15,23 @@ import net.minecraft.world.Difficulty;
 @Mixin(targets = "net.minecraft.entity.effect.BadOmenStatusEffect")
 public abstract class BadOmenStatusEffectMixin
 {
-    @Inject(method = "applyUpdateEffect", at = @At("HEAD"), cancellable = true)
-    protected void applyUpdateEffect(
-        final ServerWorld world,
-        final LivingEntity entity,
-        final int amplifier,
-        final CallbackInfoReturnable<Boolean> cir)
-    {
-        if(entity instanceof final ServerPlayerEntity player && !player.isSpectator())
-        {
-            final BlockPos playerBlockPos = player.getBlockPos();
-            if(world.getDifficulty() != Difficulty.PEACEFUL
-                && world.isNearOccupiedPointOfInterest(playerBlockPos))
-            {
-                world.getRaidManager().startRaid(player, playerBlockPos);
-            }
-            cir.setReturnValue(true);
-        }
-        cir.setReturnValue(true);
-    }
+	@Inject(method = "applyUpdateEffect", at = @At("HEAD"), cancellable = true)
+	protected void applyUpdateEffect(
+		final ServerWorld world,
+		final LivingEntity entity,
+		final int amplifier,
+		final CallbackInfoReturnable<Boolean> cir)
+	{
+		if(entity instanceof final ServerPlayerEntity player && !player.isSpectator())
+		{
+			final BlockPos playerBlockPos = player.getBlockPos();
+			if(world.getDifficulty() != Difficulty.PEACEFUL
+				&& world.isNearOccupiedPointOfInterest(playerBlockPos))
+			{
+				world.getRaidManager().startRaid(player, playerBlockPos);
+			}
+			cir.setReturnValue(true);
+		}
+		cir.setReturnValue(true);
+	}
 }
