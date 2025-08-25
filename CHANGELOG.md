@@ -31,10 +31,10 @@
 * Fix compilation
 
 # 1.0.0
-* Now targets the 1.21 release
+* Now targeting 1.21
 
 # 0.2.x
-* Now targets 1.21 Snapshots
+* Now targeting 1.21 Snapshots
 
 # 0.1.1
 * Target version is now 1.20.6
