@@ -220,7 +220,7 @@ public abstract class RaidTickMixin
 					
 					for(final UUID uUID : this.heroesOfTheVillage)
 					{
-						final Entity entity = serverWorld.getEntity(uUID);
+						final Entity entity = serverWorld.method_66347(uUID);
 						if(entity instanceof final LivingEntity livingEntity && !entity.isSpectator())
 						{
 							livingEntity.addStatusEffect(new StatusEffectInstance(
