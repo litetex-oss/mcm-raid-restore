@@ -43,7 +43,7 @@ public abstract class RaiderEntityMixin
 	protected void onDeath(final DamageSource damageSource, final CallbackInfo ci)
 	{
 		final RaiderEntity current = (RaiderEntity)(Object)this;
-		if(current.getWorld() instanceof final ServerWorld serverWorld
+		if(current.getEntityWorld() instanceof final ServerWorld serverWorld
 			&& current.isPatrolLeader()
 			&& this.getRaid() == null
 			&& serverWorld.getRaidAt(current.getBlockPos()) == null)

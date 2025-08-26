@@ -32,7 +32,7 @@ public abstract class RaidManagerMixin
 		final BlockPos pos,
 		final CallbackInfoReturnable<Raid> cir)
 	{
-		final ServerWorld serverWorld = player.getWorld();
+		final ServerWorld serverWorld = player.getEntityWorld();
 		if(player.isSpectator()
 			|| serverWorld.getGameRules().getBoolean(GameRules.DISABLE_RAIDS)
 			|| !serverWorld.getDimension().hasRaids())
