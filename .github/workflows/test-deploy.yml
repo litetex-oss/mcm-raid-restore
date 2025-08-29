@@ -52,8 +52,15 @@ jobs:
         SONATYPE_MAVEN_CENTRAL_PORTAL_USERNAME: ${{ secrets.SONATYPE_MAVEN_CENTRAL_PORTAL_USERNAME }}
         SONATYPE_MAVEN_CENTRAL_PORTAL_TOKEN: ${{ secrets.SONATYPE_MAVEN_CENTRAL_PORTAL_TOKEN }}
 
+    - id: check-for-curseforge
+      run: |
+        [ -z $CURSEFORGE_TOKEN ] && echo "has=false" || echo "has=true" >> "$GITHUB_OUTPUT"
+      env:
+        CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+
     - name: Publish to CurseForge
       uses: Kira-NT/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659 # v3
+      if: ${{ steps.check-for-curseforge.outputs.hasToken }}
       with:
         curseforge-id: null
         curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
