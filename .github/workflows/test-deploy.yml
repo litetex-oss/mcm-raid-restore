@@ -58,7 +58,7 @@ jobs:
         curseforge-id: null
         curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
         changelog: |
-          Available at https://github.com/litetex-oss/template-placeholder/blob/dev/CHANGELOG.md
+          Available at https://github.com/litetex-oss/mcm-raid-restore/blob/dev/CHANGELOG.md
           Please note that this is a SNAPSHOT which might be unstable
         fail-mode: 'warn'
         version-type: 'alpha'
