@@ -97,7 +97,7 @@ jobs:
 
     - id: check-for-curseforge
       run: |
-        [ -z $CURSEFORGE_TOKEN ] && echo "has=false" || echo "has=true" >> "$GITHUB_OUTPUT"
+        [ -z $CURSEFORGE_TOKEN ] || echo "has=true" >> "$GITHUB_OUTPUT"
       env:
         CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
 
@@ -117,7 +117,7 @@ jobs:
           * [Modrinth](https://modrinth.com/mod/${{ steps.metadata.outputs.archivesBaseName }})
           * the GitHub release assets below
           * [Maven Central](https://repo.maven.apache.org/maven2/net/litetex/mcm/)
-          ${{ (steps.check-for-curseforge.outputs.hasToken) && format('[CurseForge](https://www.curseforge.com/minecraft/mc-mods/{0})', steps.metadata.outputs.archivesBaseName) || '' }}
+          ${{ (steps.check-for-curseforge.outputs.has) && format('[CurseForge](https://www.curseforge.com/minecraft/mc-mods/{0})', steps.metadata.outputs.archivesBaseName) || '' }}
 
   publish:
     runs-on: ubuntu-latest
@@ -174,13 +174,13 @@ jobs:
 
     - id: check-for-curseforge
       run: |
-        [ -z $CURSEFORGE_TOKEN ] && echo "has=false" || echo "has=true" >> "$GITHUB_OUTPUT"
+        [ -z $CURSEFORGE_TOKEN ] || echo "has=true" >> "$GITHUB_OUTPUT"
       env:
         CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
 
     - name: Publish to CurseForge
       uses: Kira-NT/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659 # v3
-      if: ${{ steps.check-for-curseforge.outputs.hasToken }}
+      if: ${{ steps.check-for-curseforge.outputs.has }}
       with:
         curseforge-id: null
         curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
