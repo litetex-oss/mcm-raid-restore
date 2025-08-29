@@ -31,7 +31,7 @@ jobs:
       env:
         MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
         MODRINTH_VERSION_TYPE: 'alpha'
-        MODRINTH_CHANGELOG_TEXT: 'Available at https://github.com/litetex-oss/template-placeholder/blob/dev/CHANGELOG.md<br/><i>Please note that this is a SNAPSHOT which might be unstable</i>'
+        MODRINTH_CHANGELOG_TEXT: 'Available at https://github.com/litetex-oss/mcm-raid-restore/blob/dev/CHANGELOG.md<br/><i>Please note that this is a SNAPSHOT which might be unstable</i>'
 
     - name: Upload mod files
       uses: actions/upload-artifact@v4
@@ -65,7 +65,7 @@ jobs:
         curseforge-id: null
         curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
         changelog: |
-          Available at https://github.com/litetex-oss/template-placeholder/blob/dev/CHANGELOG.md
+          Available at https://github.com/litetex-oss/mcm-raid-restore/blob/dev/CHANGELOG.md
           Please note that this is a SNAPSHOT which might be unstable
         fail-mode: 'warn'
         version-type: 'alpha'
