@@ -1,3 +1,6 @@
+# 1.2.1
+* Now targeting 1.21.9
+
 # 1.2.0
 * Now targeting 1.21.8
 * Added Gamerule ``raiderBadOmenEffectSec`` to control the duration of the Bad Omen effect that is applied when killing a patrol/raid captain #229
