@@ -32,10 +32,10 @@ public abstract class RaidManagerMixin
 		final BlockPos pos,
 		final CallbackInfoReturnable<Raid> cir)
 	{
-		final ServerWorld serverWorld = player.getWorld();
+		final ServerWorld serverWorld = player.getEntityWorld();
 		if(player.isSpectator()
 			|| serverWorld.getGameRules().getBoolean(GameRules.DISABLE_RAIDS)
-			|| !player.getWorld().getDimension().hasRaids())
+			|| !serverWorld.getDimension().hasRaids())
 		{
 			cir.setReturnValue(null);
 			return;
@@ -56,7 +56,7 @@ public abstract class RaidManagerMixin
 			i++;
 		}
 		final Raid raid = this.getOrCreateRaid(
-			player.getWorld(),
+			serverWorld,
 			i > 0 ? BlockPos.ofFloored(vec3d.multiply(1.0 / i)) : pos);
 		
 		boolean startRaid = false;

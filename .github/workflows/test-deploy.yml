@@ -9,13 +9,22 @@ jobs:
     timeout-minutes: 60
     steps:
     - uses: actions/checkout@v5
-    
+
     - name: Set up JDK
       uses: actions/setup-java@v5
       with:
         distribution: 'temurin'
         java-version: '21'
-        cache: 'gradle'
+
+    - name: Try restore Gradle Cache
+      uses: actions/cache/restore@v4
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-build-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-build-
 
     - name: Build and publish
       run: ./gradlew clean build modrinth --info --stacktrace
@@ -42,3 +51,21 @@ jobs:
         MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
         SONATYPE_MAVEN_CENTRAL_PORTAL_USERNAME: ${{ secrets.SONATYPE_MAVEN_CENTRAL_PORTAL_USERNAME }}
         SONATYPE_MAVEN_CENTRAL_PORTAL_TOKEN: ${{ secrets.SONATYPE_MAVEN_CENTRAL_PORTAL_TOKEN }}
+
+    - id: check-for-curseforge
+      run: |
+        [ -z $CURSEFORGE_TOKEN ] || echo "has=true" >> "$GITHUB_OUTPUT"
+      env:
+        CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+
+    - name: Publish to CurseForge
+      uses: Kira-NT/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659 # v3
+      if: ${{ steps.check-for-curseforge.outputs.has }}
+      with:
+        curseforge-id: 1337381
+        curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+        changelog: |
+          Available at https://github.com/litetex-oss/mcm-raid-restore/blob/dev/CHANGELOG.md
+          Please note that this is a SNAPSHOT which might be unstable
+        fail-mode: 'warn'
+        version-type: 'alpha'

@@ -1,17 +1,17 @@
 plugins {
-    id 'fabric-loom' version '1.11.7'
+    id 'fabric-loom' version '1.11.8'
     id 'maven-publish'
     id 'signing'
     id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
     id 'checkstyle'
     id 'pmd'
-    id 'com.modrinth.minotaur' version '2.8.8'
+    id 'com.modrinth.minotaur' version '2.8.10'
 }
 
 ext {
-    checkstyleVersion = '11.0.0'
+    checkstyleVersion = '11.1.0'
 
-    pmdVersion = '7.16.0'
+    pmdVersion = '7.17.0'
 
     // Derive version from yarn
     minecraft_version = project.yarn_mappings.split("\\+")[0]
@@ -67,6 +67,7 @@ checkstyle {
 
 pmd {
     consoleOutput = true
+    incrementalAnalysis = true
     ruleSetFiles = files(".config/pmd/java/ruleset.xml")
     toolVersion = pmdVersion
 }
