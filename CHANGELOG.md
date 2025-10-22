@@ -1,3 +1,6 @@
+# 1.3.0
+* Now targeting 1.21.11
+
 # 1.2.1
 * Now targeting 1.21.9
 
