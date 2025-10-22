@@ -18,6 +18,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.village.raid.Raid;
 import net.minecraft.village.raid.RaidManager;
 import net.minecraft.world.GameRules;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.poi.PointOfInterest;
 import net.minecraft.world.poi.PointOfInterestStorage;
 
@@ -35,7 +36,8 @@ public abstract class RaidManagerMixin
 		final ServerWorld serverWorld = player.getEntityWorld();
 		if(player.isSpectator()
 			|| serverWorld.getGameRules().getBoolean(GameRules.DISABLE_RAIDS)
-			|| !serverWorld.getDimension().hasRaids())
+			|| !serverWorld.getEnvironmentAttributes()
+			.getAttributeValue(EnvironmentAttributes.CAN_START_RAID_GAMEPLAY, pos))
 		{
 			cir.setReturnValue(null);
 			return;
