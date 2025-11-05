@@ -9,31 +9,31 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.litetex.raidrestore.RaidRestoreGameRules;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.entity.passive.WolfEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.raid.RaiderEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.village.raid.Raid;
-import net.minecraft.world.GameRules;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.animal.wolf.Wolf;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raider;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
 
 
-@Mixin(RaiderEntity.class)
+@Mixin(Raider.class)
 public abstract class RaiderEntityMixin
 {
 	@Shadow
-	public abstract Raid getRaid();
+	public abstract Raid getCurrentRaid();
 	
-	@Inject(method = "onDeath",
+	@Inject(method = "die",
 		at = @At(value = "INVOKE",
-			target = "Lnet/minecraft/entity/mob/PatrolEntity;onDeath(Lnet/minecraft/entity/damage/DamageSource;)V"))
+			target = "Lnet/minecraft/world/entity/monster/PatrollingMonster;die(Lnet/minecraft/world/damagesource/DamageSource;)V"))
 	@SuppressWarnings({
 		"UnreachableCode",
 		"java:S3776",
@@ -42,39 +42,39 @@ public abstract class RaiderEntityMixin
 		"PMD.CognitiveComplexity"})
 	protected void onDeath(final DamageSource damageSource, final CallbackInfo ci)
 	{
-		final RaiderEntity current = (RaiderEntity)(Object)this;
-		if(current.getEntityWorld() instanceof final ServerWorld serverWorld
+		final Raider current = (Raider)(Object)this;
+		if(current.level() instanceof final ServerLevel serverWorld
 			&& current.isPatrolLeader()
-			&& this.getRaid() == null
-			&& serverWorld.getRaidAt(current.getBlockPos()) == null)
+			&& this.getCurrentRaid() == null
+			&& serverWorld.getRaidAt(current.blockPosition()) == null)
 		{
-			final ItemStack itemStack = current.getEquippedStack(EquipmentSlot.HEAD);
+			final ItemStack itemStack = current.getItemBySlot(EquipmentSlot.HEAD);
 			if(!itemStack.isEmpty()
-				&& ItemStack.areEqual(
+				&& ItemStack.matches(
 				itemStack,
-				Raid.createOminousBanner(current.getRegistryManager().getOrThrow(RegistryKeys.BANNER_PATTERN))))
+				Raid.getOminousBannerInstance(current.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN))))
 			{
-				final PlayerEntity attackingPlayer = this.getAttackingPlayer(damageSource);
+				final Player attackingPlayer = this.getAttackingPlayer(damageSource);
 				if(attackingPlayer != null)
 				{
-					final StatusEffectInstance statusEffectInstance =
-						attackingPlayer.getStatusEffect(StatusEffects.BAD_OMEN);
+					final MobEffectInstance statusEffectInstance =
+						attackingPlayer.getEffect(MobEffects.BAD_OMEN);
 					int amplifier = 1;
 					if(statusEffectInstance != null)
 					{
 						amplifier += statusEffectInstance.getAmplifier();
-						attackingPlayer.removeStatusEffectInternal(StatusEffects.BAD_OMEN);
+						attackingPlayer.removeEffectNoUpdate(MobEffects.BAD_OMEN);
 					}
 					else
 					{
 						amplifier--;
 					}
-					if(!serverWorld.getGameRules().getBoolean(GameRules.DISABLE_RAIDS))
+					if(!serverWorld.getGameRules().getBoolean(GameRules.RULE_DISABLE_RAIDS))
 					{
-						attackingPlayer.addStatusEffect(new StatusEffectInstance(
-							StatusEffects.BAD_OMEN,
+						attackingPlayer.addEffect(new MobEffectInstance(
+							MobEffects.BAD_OMEN,
 							serverWorld.getGameRules().getInt(RaidRestoreGameRules.RAIDER_BAD_OMEN_EFFECT_SEC) * 20,
-							MathHelper.clamp(amplifier, 0, 4),
+							Mth.clamp(amplifier, 0, 4),
 							false,
 							false,
 							true));
@@ -85,16 +85,16 @@ public abstract class RaiderEntityMixin
 	}
 	
 	@Unique
-	private @Nullable PlayerEntity getAttackingPlayer(final DamageSource damageSource)
+	private @Nullable Player getAttackingPlayer(final DamageSource damageSource)
 	{
-		final Entity attacker = damageSource.getAttacker();
-		if(attacker instanceof final PlayerEntity playerEntity)
+		final Entity attacker = damageSource.getEntity();
+		if(attacker instanceof final Player playerEntity)
 		{
 			return playerEntity;
 		}
-		else if(attacker instanceof final WolfEntity wolfEntity
-			&& wolfEntity.isTamed()
-			&& wolfEntity.getOwner() instanceof final PlayerEntity wolfOwnerPlayerEntity)
+		else if(attacker instanceof final Wolf wolfEntity
+			&& wolfEntity.isTame()
+			&& wolfEntity.getOwner() instanceof final Player wolfOwnerPlayerEntity)
 		{
 			return wolfOwnerPlayerEntity;
 		}

@@ -8,47 +8,47 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.registry.tag.PointOfInterestTypeTags;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.village.raid.Raid;
-import net.minecraft.village.raid.RaidManager;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.poi.PointOfInterest;
-import net.minecraft.world.poi.PointOfInterestStorage;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.stats.Stats;
+import net.minecraft.tags.PoiTypeTags;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.ai.village.poi.PoiManager;
+import net.minecraft.world.entity.ai.village.poi.PoiRecord;
+import net.minecraft.world.entity.raid.Raid;
+import net.minecraft.world.entity.raid.Raids;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.phys.Vec3;
 
 
-@Mixin(RaidManager.class)
+@Mixin(Raids.class)
 public abstract class RaidManagerMixin
 {
 	@SuppressWarnings({"UnreachableCode", "java:S125", "checkstyle:MagicNumber"})
-	@Inject(method = "startRaid", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "createOrExtendRaid", at = @At("HEAD"), cancellable = true)
 	protected void startRaid(
-		final ServerPlayerEntity player,
+		final ServerPlayer player,
 		final BlockPos pos,
 		final CallbackInfoReturnable<Raid> cir)
 	{
-		final ServerWorld serverWorld = player.getEntityWorld();
+		final ServerLevel serverWorld = player.level();
 		if(player.isSpectator()
-			|| serverWorld.getGameRules().getBoolean(GameRules.DISABLE_RAIDS)
-			|| !serverWorld.getDimension().hasRaids())
+			|| serverWorld.getGameRules().getBoolean(GameRules.RULE_DISABLE_RAIDS)
+			|| !serverWorld.dimensionType().hasRaids())
 		{
 			cir.setReturnValue(null);
 			return;
 		}
 		
 		int i = 0;
-		Vec3d vec3d = Vec3d.ZERO;
-		for(final PointOfInterest pointOfInterest : serverWorld.getPointOfInterestStorage()
-			.getInCircle(
-				poiType -> poiType.isIn(PointOfInterestTypeTags.VILLAGE),
+		Vec3 vec3d = Vec3.ZERO;
+		for(final PoiRecord pointOfInterest : serverWorld.getPoiManager()
+			.getInRange(
+				poiType -> poiType.is(PoiTypeTags.VILLAGE),
 				pos,
 				64,
-				PointOfInterestStorage.OccupationStatus.IS_OCCUPIED)
+				PoiManager.Occupancy.IS_OCCUPIED)
 			.toList())
 		{
 			final BlockPos blockPos = pointOfInterest.getPos();
@@ -57,50 +57,50 @@ public abstract class RaidManagerMixin
 		}
 		final Raid raid = this.getOrCreateRaid(
 			serverWorld,
-			i > 0 ? BlockPos.ofFloored(vec3d.multiply(1.0 / i)) : pos);
+			i > 0 ? BlockPos.containing(vec3d.scale(1.0 / i)) : pos);
 		
 		boolean startRaid = false;
-		if(!raid.hasStarted())
+		if(!raid.isStarted())
 		{
-			if(!this.raids.containsValue(raid))
+			if(!this.raidMap.containsValue(raid))
 			{
-				this.raids.put(this.nextId(), raid);
+				this.raidMap.put(this.getUniqueId(), raid);
 			}
 			startRaid = true;
 		}
-		else if(raid.getBadOmenLevel() < raid.getMaxAcceptableBadOmenLevel())
+		else if(raid.getRaidOmenLevel() < raid.getMaxRaidOmenLevel())
 		{
 			startRaid = true;
 		}
 		else
 		{
-			player.removeStatusEffect(StatusEffects.BAD_OMEN);
+			player.removeEffect(MobEffects.BAD_OMEN);
 		}
 		
 		if(startRaid)
 		{
 			// More like "prepareStart"...
-			raid.start(player);
+			raid.absorbRaidOmen(player);
 			
-			if(!raid.hasSpawned())
+			if(!raid.hasFirstWaveSpawned())
 			{
-				player.incrementStat(Stats.RAID_TRIGGER);
+				player.awardStat(Stats.RAID_TRIGGER);
 				// Buggy doesn't seem to be triggered correctly and has no effect
 				// Looks like a bug in AbstractCriterion (progressions is empty)
 				// Criteria.VOLUNTARY_EXILE.trigger(player);
 			}
 		}
-		((RaidManager)(Object)this).markDirty();
+		((Raids)(Object)this).setDirty();
 		cir.setReturnValue(raid);
 	}
 	
 	@Shadow
 	@Final
-	private Int2ObjectMap<Raid> raids;
+	private Int2ObjectMap<Raid> raidMap;
 	
 	@Shadow
-	protected abstract int nextId();
+	protected abstract int getUniqueId();
 	
 	@Shadow
-	protected abstract Raid getOrCreateRaid(ServerWorld world, BlockPos pos);
+	protected abstract Raid getOrCreateRaid(ServerLevel world, BlockPos pos);
 }
