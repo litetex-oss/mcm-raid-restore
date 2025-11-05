@@ -33,7 +33,8 @@ public abstract class RaiderEntityMixin
 	
 	@Inject(method = "die",
 		at = @At(value = "INVOKE",
-			target = "Lnet/minecraft/world/entity/monster/PatrollingMonster;die(Lnet/minecraft/world/damagesource/DamageSource;)V"))
+			target = "Lnet/minecraft/world/entity/monster/PatrollingMonster;"
+				+ "die(Lnet/minecraft/world/damagesource/DamageSource;)V"))
 	@SuppressWarnings({
 		"UnreachableCode",
 		"java:S3776",

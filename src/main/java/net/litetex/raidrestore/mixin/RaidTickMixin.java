@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -55,7 +56,8 @@ public abstract class RaidTickMixin
 		"checkstyle:MethodLength",
 		"PMD.CognitiveComplexity",
 		"PMD.CyclomaticComplexity",
-		"PMD.NPathComplexity"})
+		"PMD.NPathComplexity",
+		"PMD.AvoidDeeplyNestedIfStmts"})
 	public void tick(final ServerLevel serverWorld, final CallbackInfo ci)
 	{
 		if(this.isStopped())
@@ -159,7 +161,8 @@ public abstract class RaidTickMixin
 					}
 					
 					this.raidCooldownTicks--;
-					this.raidEvent.setProgress(Mth.clamp((PRE_RAID_TICKS - this.raidCooldownTicks) / 300.0F, 0.0F, 1.0F));
+					this.raidEvent.setProgress(
+						Mth.clamp((PRE_RAID_TICKS - this.raidCooldownTicks) / 300.0F, 0.0F, 1.0F));
 				}
 			}
 			// endregion
