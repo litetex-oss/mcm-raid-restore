@@ -1,3 +1,7 @@
+# 1.2.2
+* Now targeting 1.21.10
+* Migrated to "official" mappings
+
 # 1.2.1
 * Now targeting 1.21.9
 
