@@ -13,12 +13,13 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.PoiTypeTags;
+import net.minecraft.world.attribute.EnvironmentAttributes;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.entity.ai.village.poi.PoiRecord;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raids;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 import net.minecraft.world.phys.Vec3;
 
 
@@ -34,8 +35,8 @@ public abstract class RaidManagerMixin
 	{
 		final ServerLevel serverWorld = player.level();
 		if(player.isSpectator()
-			|| serverWorld.getGameRules().getBoolean(GameRules.RULE_DISABLE_RAIDS)
-			|| !serverWorld.dimensionType().hasRaids())
+			|| !serverWorld.getGameRules().get(GameRules.RAIDS)
+			|| !serverWorld.environmentAttributes().getValue(EnvironmentAttributes.CAN_START_RAID, pos))
 		{
 			cir.setReturnValue(null);
 			return;
