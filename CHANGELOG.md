@@ -1,5 +1,6 @@
 # 1.3.0
 * Now targeting 1.21.11
+* Renamed gamerules
 * Requires fabric-api now
   * This is because GameRules are now tracked in a Registry
 
