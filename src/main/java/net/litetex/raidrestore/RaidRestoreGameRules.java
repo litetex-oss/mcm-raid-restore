@@ -1,18 +1,20 @@
 package net.litetex.raidrestore;
 
-import net.minecraft.world.flag.FeatureFlagSet;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRule;
+import net.minecraft.world.level.gamerules.GameRuleCategory;
+import net.minecraft.world.level.gamerules.GameRules;
 
 
 public final class RaidRestoreGameRules
 {
-	public static final GameRules.Key<GameRules.IntegerValue> RAIDER_BAD_OMEN_EFFECT_SEC =
-		GameRules.register(
-			"raiderBadOmenEffectSec",
-			GameRules.Category.MOBS,
-			GameRules.IntegerValue.create(
-				100 * 60, 1, 1_000_000, FeatureFlagSet.of(), (server, rule) -> {
-				}));
+	public static final GameRule<Integer> RAIDER_BAD_OMEN_EFFECT_SEC =
+		GameRules.registerInteger(
+			"raider_bad_omen_effect_sec",
+			GameRuleCategory.MOBS,
+			100 * 60,
+			1,
+			1_000_000
+		);
 	
 	public static void init()
 	{

@@ -22,7 +22,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.raid.Raid;
 import net.minecraft.world.entity.raid.Raider;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.gamerules.GameRules;
 
 
 @Mixin(Raider.class)
@@ -71,11 +71,11 @@ public abstract class RaiderEntityMixin
 					{
 						amplifier--;
 					}
-					if(!serverWorld.getGameRules().getBoolean(GameRules.RULE_DISABLE_RAIDS))
+					if(serverWorld.getGameRules().get(GameRules.RAIDS))
 					{
 						attackingPlayer.addEffect(new MobEffectInstance(
 							MobEffects.BAD_OMEN,
-							serverWorld.getGameRules().getInt(RaidRestoreGameRules.RAIDER_BAD_OMEN_EFFECT_SEC) * 20,
+							serverWorld.getGameRules().get(RaidRestoreGameRules.RAIDER_BAD_OMEN_EFFECT_SEC) * 20,
 							Mth.clamp(amplifier, 0, 4),
 							false,
 							false,
