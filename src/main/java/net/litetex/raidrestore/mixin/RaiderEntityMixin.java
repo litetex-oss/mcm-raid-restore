@@ -40,7 +40,8 @@ public abstract class RaiderEntityMixin
 		"java:S3776",
 		"javabugs:S6320",
 		"checkstyle:MagicNumber",
-		"PMD.CognitiveComplexity"})
+		"PMD.CognitiveComplexity",
+		"PMD.AvoidDeeplyNestedIfStmts"})
 	protected void onDeath(final DamageSource damageSource, final CallbackInfo ci)
 	{
 		final Raider current = (Raider)(Object)this;
