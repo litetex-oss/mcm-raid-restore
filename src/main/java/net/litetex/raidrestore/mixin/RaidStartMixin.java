@@ -1,36 +1,35 @@
 package net.litetex.raidrestore.mixin;
 
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.raid.Raid;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.village.raid.Raid;
-
 
 @Mixin(Raid.class)
 @SuppressWarnings({"checkstyle:MagicNumber", "checkstyle:StaticVariableName"})
 public abstract class RaidStartMixin
 {
-	@Inject(method = "start", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "absorbRaidOmen", at = @At("HEAD"), cancellable = true)
 	protected void start(
-		final ServerPlayerEntity player,
+		final ServerPlayer player,
 		final CallbackInfoReturnable<Boolean> cir)
 	{
-		final StatusEffectInstance statusEffect = player.getStatusEffect(StatusEffects.BAD_OMEN);
+		final MobEffectInstance statusEffect = player.getEffect(MobEffects.BAD_OMEN);
 		if(statusEffect != null)
 		{
-			this.raidOmenLevel = MathHelper.clamp(
+			this.raidOmenLevel = Mth.clamp(
 				this.raidOmenLevel + statusEffect.getAmplifier() + 1,
 				0,
-				this.getMaxAcceptableBadOmenLevel());
+				this.getMaxRaidOmenLevel());
 		}
-		player.removeStatusEffect(StatusEffects.BAD_OMEN);
+		player.removeEffect(MobEffects.BAD_OMEN);
 		
 		cir.setReturnValue(true);
 	}
@@ -39,5 +38,5 @@ public abstract class RaidStartMixin
 	private int raidOmenLevel;
 	
 	@Shadow
-	public abstract int getMaxAcceptableBadOmenLevel();
+	public abstract int getMaxRaidOmenLevel();
 }
