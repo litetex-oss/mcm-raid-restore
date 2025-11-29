@@ -1,0 +1,71 @@
+name: Test Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Set up JDK
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
+    - name: Try restore Gradle Cache
+      uses: actions/cache/restore@v4
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-build-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-build-
+
+    - name: Build and publish
+      run: ./gradlew clean build modrinth --info --stacktrace
+      env:
+        MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+        MODRINTH_VERSION_TYPE: 'alpha'
+        MODRINTH_CHANGELOG_TEXT: 'Available at https://github.com/litetex-oss/template-placeholder/blob/dev/CHANGELOG.md<br/><i>Please note that this is a SNAPSHOT which might be unstable</i>'
+
+    - name: Upload mod files
+      uses: actions/upload-artifact@v5
+      with:
+        name: mod-files
+        path: |
+          build/devlibs/*-sources.jar
+          build/libs/*.jar
+          !build/libs/*-sources.jar
+          !build/libs/*-javadoc.jar
+        if-no-files-found: error
+
+    - name: Publish to OSSRH
+      run: ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository --info --stacktrace
+      env:
+        MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+        MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+        SONATYPE_MAVEN_CENTRAL_PORTAL_USERNAME: ${{ secrets.SONATYPE_MAVEN_CENTRAL_PORTAL_USERNAME }}
+        SONATYPE_MAVEN_CENTRAL_PORTAL_TOKEN: ${{ secrets.SONATYPE_MAVEN_CENTRAL_PORTAL_TOKEN }}
+
+    - id: check-for-curseforge
+      run: |
+        [ -z $CURSEFORGE_TOKEN ] || echo "has=true" >> "$GITHUB_OUTPUT"
+      env:
+        CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+
+    - name: Publish to CurseForge
+      uses: Kira-NT/mc-publish@995edadc13559a8b28d0b7e6571229f067ec7659 # v3
+      if: ${{ steps.check-for-curseforge.outputs.has }}
+      with:
+        curseforge-id: null
+        curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+        changelog: |
+          Available at https://github.com/litetex-oss/template-placeholder/blob/dev/CHANGELOG.md
+          Please note that this is a SNAPSHOT which might be unstable
+        fail-mode: 'warn'
+        version-type: 'alpha'
