@@ -11,7 +11,7 @@ import com.google.common.collect.ImmutableMap;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.UnboundedMapCodec;
 
-import net.minecraft.advancements.critereon.MobEffectsPredicate;
+import net.minecraft.advancements.criterion.MobEffectsPredicate;
 import net.minecraft.core.Holder;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
