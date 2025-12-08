@@ -22,7 +22,7 @@ base {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/template-placeholder.accesswidener")
+    accessWidenerPath = file("src/main/resources/raid-restore.accesswidener")
     log4jConfigs.from(file("src/dev/log4j2.xml"))
 }
 
