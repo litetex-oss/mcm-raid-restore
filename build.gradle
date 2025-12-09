@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.14.1'
+    id 'fabric-loom' version '1.14.5'
     id 'maven-publish'
     id 'signing'
     id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
@@ -42,6 +42,11 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    // Required for unfrozen registry
+    modImplementation fabricApi.module("fabric-registry-sync-v0", project.fabric_api_version)
+
+    // Only needed during development
+    modLocalRuntime "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
 
 processResources {
@@ -52,7 +57,8 @@ processResources {
                 "desc": project.mod_desc,
                 "license_spdx_id": project.mod_license_spdx_id,
                 "minecraft_version": project.minecraft_version,
-                "loader_version": project.loader_version
+                "loader_version": project.loader_version,
+                "fabric_api_version": project.fabric_api_version
     }
 }
 
