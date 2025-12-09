@@ -1,3 +1,9 @@
+# 1.3.0
+* Now targeting 1.21.11
+* Renamed gamerules
+* Requires fabric-api now
+  * This is because GameRules are now tracked in a Registry
+
 # 1.2.3
 * Remove "Raid Omen" from the advancement requirements, as it's not possible to get it with the mod installed
   * This ensures that the "How Did We Get Here?" advancement works as expected 
