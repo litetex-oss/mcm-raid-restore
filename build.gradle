@@ -1,0 +1,182 @@
+plugins {
+    id 'fabric-loom' version '1.14.7'
+    id 'maven-publish'
+    id 'signing'
+    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
+    id 'checkstyle'
+    id 'pmd'
+    id 'com.modrinth.minotaur' version '2.8.10'
+}
+
+ext {
+    checkstyleVersion = '12.3.0'
+
+    pmdVersion = '7.19.0'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archivesBaseName
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/template-placeholder.accesswidener")
+    log4jConfigs.from(file("src/dev/log4j2.xml"))
+}
+
+// https://github.com/gradle/gradle/issues/27035
+configurations.checkstyle {
+    resolutionStrategy.capabilitiesResolution.withCapability("com.google.collections:google-collections") {
+        select("com.google.guava:guava:0")
+    }
+}
+
+dependencies {
+    checkstyle "com.puppycrawl.tools:checkstyle:${checkstyleVersion}"
+
+    pmd "net.sourceforge.pmd:pmd-ant:${pmdVersion}",
+            "net.sourceforge.pmd:pmd-java:${pmdVersion}"
+
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings loom.officialMojangMappings()
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+}
+
+processResources {
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version,
+                "id": project.archivesBaseName,
+                "name": project.mod_name,
+                "desc": project.mod_desc,
+                "license_spdx_id": project.mod_license_spdx_id,
+                "minecraft_version": project.minecraft_version,
+                "loader_version": project.loader_version
+    }
+}
+
+checkstyle {
+    configDirectory = file("$rootProject.projectDir/.config/checkstyle")
+    ignoreFailures = false
+    showViolations = true
+    toolVersion = checkstyleVersion
+}
+
+pmd {
+    consoleOutput = true
+    incrementalAnalysis = true
+    ruleSetFiles = files(".config/pmd/java/ruleset.xml")
+    toolVersion = pmdVersion
+}
+
+tasks.withType(Checkstyle).configureEach {
+    enabled = project.hasProperty("checkstyleEnabled");
+}
+
+tasks.withType(Pmd).configureEach {
+    enabled = project.hasProperty("pmdEnabled")
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
+java {
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    withSourcesJar()
+    withJavadocJar()
+
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+javadoc {
+    options.addBooleanOption('html5', true)
+    options.addBooleanOption('Xdoclint:none', true)
+    options.addBooleanOption('quiet', true)
+}
+
+jar {
+    from("LICENSE") {
+        rename { "${it}_${project.archivesBaseName}"}
+    }
+}
+
+// configure the maven publication
+publishing {
+    publications {
+        create("mavenJava", MavenPublication) {
+            artifactId = project.archivesBaseName
+            from components.java
+            pom {
+                name = project.mod_name
+                description = project.mod_desc
+                url = 'https://github.com/litetex-oss/mcm-' + artifactId
+                licenses {
+                    license {
+                        name = project.mod_license_spdx_id
+                        url = project.mod_license_url
+                        distribution = 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        name = 'litetex'
+                        url = 'https://github.com/litetex'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/litetex-oss/' + artifactId + '.git'
+                    url = 'https://github.com/litetex-oss/mcm-' + artifactId
+                }
+            }
+        }
+    }
+
+    // Docs: https://docs.gradle.org/current/userguide/publishing_maven.html
+    // repositories.mavenLocal() // uncomment to publish locally
+    if (providers.environmentVariable("MAVEN_PUBLISH_URL").present) {
+        repositories.maven {
+            url = providers.environmentVariable("MAVEN_PUBLISH_URL")
+            credentials {
+                username = providers.environmentVariable("MAVEN_PUBLISH_USERNAME").get()
+                password = providers.environmentVariable("MAVEN_PUBLISH_PASSWORD").get()
+            }
+        }
+    }
+}
+
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
+// https://github.com/modrinth/minotaur/blob/master/README.md#available-properties
+modrinth {
+    // token defaults to "MODRINTH_TOKEN" environment variable
+    projectId = project.archivesBaseName
+    // Default/empty value is release
+    versionType = System.getenv("MODRINTH_VERSION_TYPE")
+    uploadFile = remapJar
+    additionalFiles = [sourcesJar]
+    syncBodyFrom = rootProject.file("README.md").text
+    changelog = System.getenv("MODRINTH_CHANGELOG_TEXT")
+}
+
+signing {
+    def signingKey = System.getenv("MAVEN_GPG_PRIVATE_KEY")
+    def signingPassword = System.getenv("MAVEN_GPG_PASSPHRASE")
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign publishing.publications.mavenJava
+}
+
+// Docs: https://github.com/gradle-nexus/publish-plugin
+// Publish using publishToSonatype closeAndReleaseSonatypeStagingRepository
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
+            username = System.getenv("SONATYPE_MAVEN_CENTRAL_PORTAL_USERNAME")
+            password = System.getenv("SONATYPE_MAVEN_CENTRAL_PORTAL_TOKEN")
+        }
+    }
+}
