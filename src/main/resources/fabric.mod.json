@@ -15,13 +15,22 @@
   "license": "${license_spdx_id}",
   "icon": "assets/icon.png",
   "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.litetex.raidrestore.fabric.FabricRaidRestore"
+    ]
+  },
   "mixins": [
-    "template-placeholder.mixins.json"
+    "raid-restore.mixins.json"
   ],
-  "accessWidener": "template-placeholder.accesswidener",
+  "accessWidener": "raid-restore.accesswidener",
+  "requires": {
+    "fabric-api": "*"
+  },
   "recommends": {
     "fabricloader": ">=${loader_version}",
-    "minecraft": ">=${minecraft_version}"
+    "minecraft": ">=${minecraft_version}",
+    "fabric-api": ">=${fabric_api_version}"
   },
   "custom": {
     "modmenu": {

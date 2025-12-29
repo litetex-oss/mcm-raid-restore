@@ -1,25 +1,44 @@
 <!-- modrinth_exclude.start -->
 
-[![Version](https://img.shields.io/modrinth/v/template-placeholder)](https://modrinth.com/mod/template-placeholder)
-[![Build](https://img.shields.io/github/actions/workflow/status/litetex-oss/template-placeholder/check-build.yml?branch=dev)](https://github.com/litetex-oss/template-placeholder/actions/workflows/check-build.yml?query=branch%3Adev)
+[![Version](https://img.shields.io/modrinth/v/7YpmyzZr)](https://modrinth.com/mod/raid-restore)
+[![Build](https://img.shields.io/github/actions/workflow/status/litetex-oss/mcm-raid-restore/check-build.yml?branch=dev)](https://github.com/litetex-oss/mcm-raid-restore/actions/workflows/check-build.yml?query=branch%3Adev)
 
-# template-placeholder
+# Raid Restorer
 
 <!-- modrinth_exclude.end -->
 
-TODO
+Restores the raid mechanic like it was in 1.20 - makes (stacked) raid farms work again
+
+<details><summary>Showcase</summary>
+
+[Showcase](https://github.com/litetex-oss/mcm-raid-restore/assets/40789489/eec2998c-00ad-4f8b-ac66-219fea0d5107)
+
+</details>
+
+## Configuration
+
+### Gamerule ``raider_bad_omen_effect_sec``
+
+Controls the duration of the Bad Omen effect that is applied when killing a raid/patrol captain.<br/>
+The default is ``6000`` (100 minutes) as it was in 1.20.
+
+## Motivation/Why does this mod exist?
+
+Raids [in 1.21](https://minecraft.wiki/w/Java_Edition_24w13a) got significantly changed and it's no longer possible to create a stacking raid farm.
+
+See also: [More details, comparisons and arguments](https://github.com/litetex-oss/mcm-raid-restore/blob/dev/MOTIVATION.md)
 
 <!-- modrinth_exclude.start -->
 
 ## Installation
-[Installation guide for the latest release](https://github.com/litetex-oss/template-placeholder/releases/latest#Installation)
+[Installation guide for the latest release](https://github.com/litetex-oss/mcm-raid-restore/releases/latest#Installation)
 
 ### Usage in other mods
 
 Add the following to ``build.gradle``:
 ```groovy
 dependencies {
-    modImplementation 'net.litetex.mcm:template-placeholder:<version>'
+    modImplementation 'net.litetex.mcm:raid-restore:<version>'
     // Further documentation: https://wiki.fabricmc.net/documentation:fabric_loom
 }
 ```
