@@ -22,7 +22,7 @@ base {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/template-placeholder.accesswidener")
+    accessWidenerPath = file("src/main/resources/raid-restore.accesswidener")
     log4jConfigs.from(file("src/dev/log4j2.xml"))
 }
 
@@ -42,6 +42,11 @@ dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    // Required for unfrozen registry
+    modImplementation fabricApi.module("fabric-registry-sync-v0", project.fabric_api_version)
+
+    // Only needed during development
+    modLocalRuntime "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
 
 processResources {
@@ -52,7 +57,8 @@ processResources {
                 "desc": project.mod_desc,
                 "license_spdx_id": project.mod_license_spdx_id,
                 "minecraft_version": project.minecraft_version,
-                "loader_version": project.loader_version
+                "loader_version": project.loader_version,
+                "fabric_api_version": project.fabric_api_version
     }
 }
 
@@ -159,6 +165,9 @@ modrinth {
     additionalFiles = [sourcesJar]
     syncBodyFrom = rootProject.file("README.md").text
     changelog = System.getenv("MODRINTH_CHANGELOG_TEXT")
+    dependencies {
+        required.project 'fabric-api'
+    }
 }
 
 signing {
