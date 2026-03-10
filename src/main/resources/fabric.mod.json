@@ -18,7 +18,7 @@
   "mixins": [
     "template-placeholder.mixins.json"
   ],
-  "accessWidener": "template-placeholder.accesswidener",
+  "accessWidener": "template-placeholder.classtweaker",
   "recommends": {
     "fabricloader": ">=${loader_version}",
     "minecraft": ">=${minecraft_version}"

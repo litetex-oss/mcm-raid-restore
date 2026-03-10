@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.15.4'
+    id 'net.fabricmc.fabric-loom' version '1.15.4'
     id 'maven-publish'
     id 'signing'
     id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
@@ -22,7 +22,7 @@ base {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/template-placeholder.accesswidener")
+    accessWidenerPath = file("src/main/resources/template-placeholder.classtweaker")
     log4jConfigs.from(file("src/dev/log4j2.xml"))
 }
 
@@ -40,8 +40,7 @@ dependencies {
             "net.sourceforge.pmd:pmd-java:${pmdVersion}"
 
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
 }
 
 processResources {
@@ -79,7 +78,7 @@ tasks.withType(Pmd).configureEach {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
+    it.options.release = 25
 }
 
 java {
@@ -88,8 +87,8 @@ java {
     withSourcesJar()
     withJavadocJar()
 
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 javadoc {
@@ -155,7 +154,7 @@ modrinth {
     projectId = project.archivesBaseName
     // Default/empty value is release
     versionType = System.getenv("MODRINTH_VERSION_TYPE")
-    uploadFile = remapJar
+    uploadFile = jar
     additionalFiles = [sourcesJar]
     syncBodyFrom = rootProject.file("README.md").text
     changelog = System.getenv("MODRINTH_CHANGELOG_TEXT")
