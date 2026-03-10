@@ -27,7 +27,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        java: [21]
+        java: [25]
         distribution: [temurin]
 
     steps:
@@ -87,7 +87,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        java: [21]
+        java: [25]
         distribution: [temurin]
 
     steps:
@@ -118,7 +118,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        java: [21]
+        java: [25]
         distribution: [temurin]
 
     steps:
