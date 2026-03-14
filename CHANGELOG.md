@@ -1,3 +1,6 @@
+# 1.4.0
+* Now targeting 26.1
+
 # 1.3.0
 * Now targeting 1.21.11
 * Renamed gamerules
