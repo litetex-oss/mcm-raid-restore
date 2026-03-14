@@ -308,14 +308,14 @@ public abstract class RaidTickMixin
 		final BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
 		for(int j = 0; j < tries; j++)
 		{
-			final float f = serverWorld.random.nextFloat() * (float)(Math.PI * 2);
+			final float f = serverWorld.getRandom().nextFloat() * (float)(Math.PI * 2);
 			
 			final int x = this.center.getX()
 				+ Mth.floor(Mth.cos(f) * 32.0F * invertedProximity)
-				+ serverWorld.random.nextInt(5);
+				+ serverWorld.getRandom().nextInt(5);
 			final int z = this.center.getZ()
 				+ Mth.floor(Mth.sin(f) * 32.0F * invertedProximity)
-				+ serverWorld.random.nextInt(5);
+				+ serverWorld.getRandom().nextInt(5);
 			final int y = serverWorld.getHeight(Heightmap.Types.WORLD_SURFACE, x, z);
 			
 			mutable.set(x, y, z);
