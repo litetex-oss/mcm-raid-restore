@@ -23,7 +23,7 @@
   "mixins": [
     "raid-restore.mixins.json"
   ],
-  "accessWidener": "raid-restore.accesswidener",
+  "accessWidener": "raid-restore.classtweaker",
   "requires": {
     "fabric-api": "*"
   },

@@ -27,7 +27,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        java: [21]
+        java: [25]
         distribution: [temurin]
 
     steps:
@@ -40,12 +40,12 @@ jobs:
         java-version: ${{ matrix.java }}
 
     - name: Cache Gradle
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-build-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        key: ${{ runner.os }}-gradle-build-${{ hashFiles('**/*.gradle*', '**/gradle.properties', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-build-
       
@@ -71,7 +71,7 @@ jobs:
         fi
 
     - name: Upload mod files
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v7
       with:
         name: mod-files-java-${{ matrix.java }}
         path: |
@@ -87,7 +87,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        java: [21]
+        java: [25]
         distribution: [temurin]
 
     steps:
@@ -100,12 +100,12 @@ jobs:
         java-version: ${{ matrix.java }}
 
     - name: Cache Gradle
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-checkstyle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        key: ${{ runner.os }}-gradle-checkstyle-${{ hashFiles('**/*.gradle*', '**/gradle.properties', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-checkstyle-
 
@@ -118,7 +118,7 @@ jobs:
     timeout-minutes: 10
     strategy:
       matrix:
-        java: [21]
+        java: [25]
         distribution: [temurin]
 
     steps:
@@ -131,12 +131,12 @@ jobs:
         java-version: ${{ matrix.java }}
 
     - name: Cache Gradle
-      uses: actions/cache@v4
+      uses: actions/cache@v5
       with:
         path: |
           ~/.gradle/caches
           ~/.gradle/wrapper
-        key: ${{ runner.os }}-gradle-pmd-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        key: ${{ runner.os }}-gradle-pmd-${{ hashFiles('**/*.gradle*', '**/gradle.properties', '**/gradle-wrapper.properties') }}
         restore-keys: |
           ${{ runner.os }}-gradle-pmd-
 
@@ -145,7 +145,7 @@ jobs:
 
     - name: Upload report
       if: always()
-      uses: actions/upload-artifact@v5
+      uses: actions/upload-artifact@v7
       with:
         name: pmd-report
         if-no-files-found: ignore

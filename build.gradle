@@ -1,17 +1,17 @@
 plugins {
-    id 'fabric-loom' version '1.14.5'
+    id 'net.fabricmc.fabric-loom' version '1.15.5'
     id 'maven-publish'
     id 'signing'
     id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
     id 'checkstyle'
     id 'pmd'
-    id 'com.modrinth.minotaur' version '2.8.10'
+    id 'com.modrinth.minotaur' version '2.9.0'
 }
 
 ext {
-    checkstyleVersion = '12.2.0'
+    checkstyleVersion = '13.3.0'
 
-    pmdVersion = '7.19.0'
+    pmdVersion = '7.22.0'
 }
 
 version = project.mod_version
@@ -22,7 +22,7 @@ base {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/raid-restore.accesswidener")
+    accessWidenerPath = file("src/main/resources/raid-restore.classtweaker")
     log4jConfigs.from(file("src/dev/log4j2.xml"))
 }
 
@@ -40,13 +40,12 @@ dependencies {
             "net.sourceforge.pmd:pmd-java:${pmdVersion}"
 
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
     // Required for unfrozen registry
-    modImplementation fabricApi.module("fabric-registry-sync-v0", project.fabric_api_version)
+    implementation fabricApi.module("fabric-registry-sync-v0", project.fabric_api_version)
 
     // Only needed during development
-    modLocalRuntime "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    localRuntime "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 }
 
 processResources {
@@ -85,18 +84,17 @@ tasks.withType(Pmd).configureEach {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
+    it.options.release = 25
 }
 
 java {
     // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
     // if it is present.
-    // If you remove this line, sources will not be generated.
     withSourcesJar()
     withJavadocJar()
 
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 javadoc {
@@ -142,12 +140,16 @@ publishing {
         }
     }
 
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-        // Notice: This block does NOT have the same function as the block in the top level.
-        // The repositories here will be used for publishing your artifact, not for
-        // retrieving dependencies.
+    // Docs: https://docs.gradle.org/current/userguide/publishing_maven.html
+    // repositories.mavenLocal() // uncomment to publish locally
+    if (providers.environmentVariable("MAVEN_PUBLISH_URL").present) {
+        repositories.maven {
+            url = providers.environmentVariable("MAVEN_PUBLISH_URL")
+            credentials {
+                username = providers.environmentVariable("MAVEN_PUBLISH_USERNAME").get()
+                password = providers.environmentVariable("MAVEN_PUBLISH_PASSWORD").get()
+            }
+        }
     }
 }
 
@@ -158,10 +160,13 @@ modrinth {
     projectId = project.archivesBaseName
     // Default/empty value is release
     versionType = System.getenv("MODRINTH_VERSION_TYPE")
-    uploadFile = remapJar
+    uploadFile = jar
     additionalFiles = [sourcesJar]
     syncBodyFrom = rootProject.file("README.md").text
     changelog = System.getenv("MODRINTH_CHANGELOG_TEXT")
+    dependencies {
+        required.project 'fabric-api'
+    }
 }
 
 signing {
