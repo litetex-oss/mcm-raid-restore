@@ -161,6 +161,7 @@ modrinth {
 }
 
 signing {
+    required { System.getenv("MAVEN_GPG_PRIVATE_KEY") != null }
     def signingKey = System.getenv("MAVEN_GPG_PRIVATE_KEY")
     def signingPassword = System.getenv("MAVEN_GPG_PASSPHRASE")
     useInMemoryPgpKeys(signingKey, signingPassword)
