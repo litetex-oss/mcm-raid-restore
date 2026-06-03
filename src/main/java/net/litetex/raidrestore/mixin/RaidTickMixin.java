@@ -132,29 +132,13 @@ public abstract class RaidTickMixin
 				}
 				else
 				{
-					final boolean hasPreCalculatedRaiderSpawnLocation =
-						this.waveSpawnPos.isPresent();
-					boolean needNewRaiderSpawnLocation =
-						!hasPreCalculatedRaiderSpawnLocation && this.raidCooldownTicks % 5 == 0;
-					if(hasPreCalculatedRaiderSpawnLocation
-						&& !level.isPositionEntityTicking(this.waveSpawnPos.get()))
-					{
-						needNewRaiderSpawnLocation = true;
-					}
+					final boolean needNewRaiderSpawnPos = this.waveSpawnPos
+						.map(pos -> !level.isPositionEntityTicking(pos))
+						.orElseGet(() -> this.raidCooldownTicks % 5 == 0);
 					
-					if(needNewRaiderSpawnLocation)
+					if(needNewRaiderSpawnPos)
 					{
-						int proximity = 0;
-						if(this.raidCooldownTicks < 100)
-						{
-							proximity = 1;
-						}
-						else if(this.raidCooldownTicks < 40)
-						{
-							proximity = 2;
-						}
-						
-						this.waveSpawnPos = this.getRaidersSpawnLocation(level, proximity);
+						this.waveSpawnPos = this.getRaidersSpawnLocation(level, this.proximityFromRaidCooldownTicks());
 					}
 					
 					if(this.raidCooldownTicks == PRE_RAID_TICKS || this.raidCooldownTicks % 20 == 0)
@@ -206,9 +190,7 @@ public abstract class RaidTickMixin
 			
 			while(this.shouldSpawnGroup())
 			{
-				final BlockPos blockPos = this.waveSpawnPos.isPresent()
-					? this.waveSpawnPos.get()
-					: this.findRandomRaidersSpawnLocation(level, proximity, 20);
+				final BlockPos blockPos = this.getBlockPosForGroupSpawn(level, proximity);
 				if(blockPos != null)
 				{
 					this.started = true;
@@ -298,6 +280,31 @@ public abstract class RaidTickMixin
 		// endregion
 		
 		ci.cancel();
+	}
+	
+	@Unique
+	private int proximityFromRaidCooldownTicks()
+	{
+		// NOTE: The original code has a bug where both conditions are flipped,
+		// therefore never searching for proximit 2.
+		//
+		// This is fixed here to require less block checks (see getBlockPosForGroupSpawn)
+		// It also increases the chance of spawns in the innermost ring
+		if(this.raidCooldownTicks < 40)
+		{
+			return 2;
+		}
+		else if(this.raidCooldownTicks < 100)
+		{
+			return 1;
+		}
+		return 0;
+	}
+	
+	@Unique
+	private BlockPos getBlockPosForGroupSpawn(final ServerLevel level, final int proximity)
+	{
+		return this.waveSpawnPos.orElseGet(() -> this.findRandomRaidersSpawnLocation(level, proximity, 20));
 	}
 	
 	@Unique

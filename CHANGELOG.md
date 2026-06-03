@@ -1,6 +1,10 @@
 # 1.5.0
 * Updated to 26.2
 * Add support for integrated debug renderer (`-DMC_DEBUG_ENABLED -DMC_DEBUG_RAIDS`)
+* Fixed a bug during raid spawn position search that prevented the innermost ring from being used before the raid wave started
+  * This bug was ported from/present in vanilla (before 1.21)
+  * There is now a 90% higher chance of a successful spawn in the innermost ring (38 tries instead of 20)
+  * Raid farms should be more performant as the position is reused in between waves instead of always picking a new one
 
 # 1.4.0
 * Now targeting 26.1
