@@ -13,8 +13,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.SharedConstants;
+import net.minecraft.advancements.triggers.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
@@ -25,7 +27,7 @@ import net.minecraft.world.Difficulty;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.raid.Raid;
@@ -58,7 +60,7 @@ public abstract class RaidTickMixin
 		"PMD.CyclomaticComplexity",
 		"PMD.NPathComplexity",
 		"PMD.AvoidDeeplyNestedIfStmts"})
-	public void tick(final ServerLevel serverWorld, final CallbackInfo ci)
+	public void tick(final ServerLevel level, final CallbackInfo ci)
 	{
 		if(this.isStopped())
 		{
@@ -70,8 +72,8 @@ public abstract class RaidTickMixin
 		if(this.status == Raid.RaidStatus.ONGOING)
 		{
 			final boolean wasActive = this.active;
-			this.active = serverWorld.hasChunkAt(this.center);
-			if(serverWorld.getDifficulty() == Difficulty.PEACEFUL)
+			this.active = level.hasChunkAt(this.center);
+			if(level.getDifficulty() == Difficulty.PEACEFUL)
 			{
 				this.stop();
 				ci.cancel();
@@ -89,12 +91,12 @@ public abstract class RaidTickMixin
 				return;
 			}
 			
-			if(!serverWorld.isVillage(this.center))
+			if(!level.isVillage(this.center))
 			{
-				this.moveRaidCenterToNearbyVillageSection(serverWorld);
+				this.moveRaidCenterToNearbyVillageSection(level);
 			}
 			
-			if(!serverWorld.isVillage(this.center))
+			if(!level.isVillage(this.center))
 			{
 				if(this.groupsSpawned > 0)
 				{
@@ -135,7 +137,7 @@ public abstract class RaidTickMixin
 					boolean needNewRaiderSpawnLocation =
 						!hasPreCalculatedRaiderSpawnLocation && this.raidCooldownTicks % 5 == 0;
 					if(hasPreCalculatedRaiderSpawnLocation
-						&& !serverWorld.isPositionEntityTicking(this.waveSpawnPos.get()))
+						&& !level.isPositionEntityTicking(this.waveSpawnPos.get()))
 					{
 						needNewRaiderSpawnLocation = true;
 					}
@@ -152,12 +154,12 @@ public abstract class RaidTickMixin
 							proximity = 2;
 						}
 						
-						this.waveSpawnPos = this.getRaidersSpawnLocation(serverWorld, proximity);
+						this.waveSpawnPos = this.getRaidersSpawnLocation(level, proximity);
 					}
 					
 					if(this.raidCooldownTicks == PRE_RAID_TICKS || this.raidCooldownTicks % 20 == 0)
 					{
-						this.updatePlayers(serverWorld);
+						this.updatePlayers(level);
 					}
 					
 					this.raidCooldownTicks--;
@@ -169,13 +171,33 @@ public abstract class RaidTickMixin
 			
 			if(this.ticksActive % 20L == 0L)
 			{
-				this.updatePlayers(serverWorld);
-				this.updateRaiders(serverWorld);
+				this.updatePlayers(level);
+				this.updateRaiders(level);
 				this.raidEvent.setName(raiderCount > 0 && raiderCount <= 2
 					? RAID_NAME_COMPONENT.copy()
 					.append(" - ")
 					.append(Component.translatable("event.minecraft.raid.raiders_remaining", raiderCount))
 					: RAID_NAME_COMPONENT);
+			}
+			
+			if(SharedConstants.DEBUG_RAIDS)
+			{
+				this.raidEvent.setName(
+					RAID_NAME_COMPONENT.copy()
+						.append(" wave: ")
+						.append(this.groupsSpawned + "")
+						.append(CommonComponents.SPACE)
+						.append("Raiders alive: ")
+						.append(this.getTotalRaidersAlive() + "")
+						.append(CommonComponents.SPACE)
+						.append(this.getHealthOfLivingRaiders() + "")
+						.append(" / ")
+						.append(this.totalHealth + "")
+						.append(" Is bonus? ")
+						.append((this.hasBonusWave() && this.hasSpawnedBonusWave()) + "")
+						.append(" Status: ")
+						.append(this.status.getSerializedName())
+				);
 			}
 			
 			// region Spawn
@@ -186,14 +208,14 @@ public abstract class RaidTickMixin
 			{
 				final BlockPos blockPos = this.waveSpawnPos.isPresent()
 					? this.waveSpawnPos.get()
-					: this.findRandomRaidersSpawnLocation(serverWorld, proximity, 20);
+					: this.findRandomRaidersSpawnLocation(level, proximity, 20);
 				if(blockPos != null)
 				{
 					this.started = true;
-					this.spawnGroup(serverWorld, blockPos);
+					this.spawnGroup(level, blockPos);
 					if(!playedRaidHorn)
 					{
-						this.playSound(serverWorld, blockPos);
+						this.playSound(level, blockPos);
 						playedRaidHorn = true;
 					}
 				}
@@ -222,7 +244,7 @@ public abstract class RaidTickMixin
 					
 					for(final UUID uUID : this.heroesOfTheVillage)
 					{
-						final Entity entity = serverWorld.getPlayerByUUID(uUID);
+						final Entity entity = level.getPlayerByUUID(uUID);
 						if(entity instanceof final LivingEntity livingEntity && !entity.isSpectator())
 						{
 							livingEntity.addEffect(new MobEffectInstance(
@@ -244,7 +266,7 @@ public abstract class RaidTickMixin
 			}
 			// endregion
 			
-			this.setDirty(serverWorld);
+			this.setDirty(level);
 		}
 		// endregion
 		// region Finished
@@ -260,7 +282,7 @@ public abstract class RaidTickMixin
 			
 			if(this.celebrationTicks % 20 == 0)
 			{
-				this.updatePlayers(serverWorld);
+				this.updatePlayers(level);
 				this.raidEvent.setVisible(true);
 				if(this.isVictory())
 				{
@@ -330,8 +352,8 @@ public abstract class RaidTickMixin
 					mutable.getZ() + offset)
 					&& serverWorld.isPositionEntityTicking(mutable)
 					&& (
-					SpawnPlacements.getPlacementType(EntityType.RAVAGER)
-						.isSpawnPositionOk(serverWorld, mutable, EntityType.RAVAGER)
+					SpawnPlacements.getPlacementType(EntityTypes.RAVAGER)
+						.isSpawnPositionOk(serverWorld, mutable, EntityTypes.RAVAGER)
 						|| serverWorld.getBlockState(mutable.below()).is(Blocks.SNOW)
 						&& serverWorld.getBlockState(mutable).isAir()
 				))
@@ -404,10 +426,10 @@ public abstract class RaidTickMixin
 	protected abstract boolean shouldSpawnGroup();
 	
 	@Shadow
-	protected abstract void updateRaiders(final ServerLevel serverWorld);
+	protected abstract void updateRaiders(final ServerLevel level);
 	
 	@Shadow
-	protected abstract void updatePlayers(final ServerLevel serverWorld);
+	protected abstract void updatePlayers(final ServerLevel level);
 	
 	@Shadow
 	protected abstract boolean hasMoreWaves();
@@ -416,7 +438,7 @@ public abstract class RaidTickMixin
 	public abstract int getTotalRaidersAlive();
 	
 	@Shadow
-	protected abstract void moveRaidCenterToNearbyVillageSection(final ServerLevel serverWorld);
+	protected abstract void moveRaidCenterToNearbyVillageSection(final ServerLevel level);
 	
 	@Shadow
 	public abstract boolean isOver();
@@ -428,8 +450,20 @@ public abstract class RaidTickMixin
 	public abstract boolean isStopped();
 	
 	@Shadow
-	protected abstract void playSound(final ServerLevel serverWorld, final BlockPos pos);
+	protected abstract void playSound(final ServerLevel level, final BlockPos soundOrigin);
 	
 	@Shadow
-	protected abstract void spawnGroup(final ServerLevel serverWorld, final BlockPos pos);
+	protected abstract void spawnGroup(final ServerLevel level, final BlockPos pos);
+	
+	@Shadow
+	protected abstract boolean hasSpawnedBonusWave();
+	
+	@Shadow
+	protected abstract boolean hasBonusWave();
+	
+	@Shadow
+	private float totalHealth;
+	
+	@Shadow
+	public abstract float getHealthOfLivingRaiders();
 }

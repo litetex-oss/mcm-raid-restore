@@ -16,19 +16,19 @@ public abstract class BadOmenStatusEffectMixin
 {
 	@Inject(method = "applyEffectTick", at = @At("HEAD"), cancellable = true)
 	protected void applyUpdateEffect(
-		final ServerLevel world,
-		final LivingEntity entity,
-		final int amplifier,
+		final ServerLevel level,
+		final LivingEntity mob,
+		final int amplification,
 		final CallbackInfoReturnable<Boolean> cir)
 	{
-		if(entity instanceof final ServerPlayer player
+		if(mob instanceof final ServerPlayer player
 			&& !player.isSpectator()
-			&& world.getDifficulty() != Difficulty.PEACEFUL)
+			&& level.getDifficulty() != Difficulty.PEACEFUL)
 		{
 			final BlockPos playerBlockPos = player.blockPosition();
-			if(world.isVillage(playerBlockPos))
+			if(level.isVillage(playerBlockPos))
 			{
-				world.getRaids().createOrExtendRaid(player, playerBlockPos);
+				level.getRaids().createOrExtendRaid(player, playerBlockPos);
 			}
 			// Returning false here would remove the effect, however this is handled by Raid#start
 			// (to determine the raid level)
