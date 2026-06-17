@@ -1,5 +1,5 @@
 plugins {
-    id 'net.fabricmc.fabric-loom' version '1.15.5'
+    id 'net.fabricmc.fabric-loom' version '1.17.11'
     id 'maven-publish'
     id 'signing'
     id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
@@ -9,9 +9,9 @@ plugins {
 }
 
 ext {
-    checkstyleVersion = '13.3.0'
+    checkstyleVersion = '13.6.0'
 
-    pmdVersion = '7.22.0'
+    pmdVersion = '7.25.0'
 }
 
 version = project.mod_version
@@ -46,6 +46,7 @@ dependencies {
 
     // Only needed during development
     localRuntime "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    localRuntime "net.litetex.mcm:dev-auth-neo:1.1.1"
 }
 
 processResources {
@@ -98,9 +99,15 @@ java {
 }
 
 javadoc {
-    options.addBooleanOption('html5', true)
-    options.addBooleanOption('Xdoclint:none', true)
-    options.addBooleanOption('quiet', true)
+    def opts = (options as StandardJavadocDocletOptions)
+    opts.addBooleanOption('html5', true)
+    opts.addBooleanOption('Xdoclint:none', true)
+    opts.addBooleanOption('quiet', true)
+    opts.tags(
+            "apiNote:a:API Note:",
+            "implSpec:a:Implementation Requirements:",
+            "implNote:a:Implementation Note:"
+    )
 }
 
 jar {
@@ -162,14 +169,22 @@ modrinth {
     versionType = System.getenv("MODRINTH_VERSION_TYPE")
     uploadFile = jar
     additionalFiles = [sourcesJar]
-    syncBodyFrom = rootProject.file("README.md").text
-    changelog = System.getenv("MODRINTH_CHANGELOG_TEXT")
+    syncBodyFrom = provider {
+        rootProject.file("README.md").text
+    }
+    changelog = provider {
+        def changelogFile = System.getenv("MODRINTH_CHANGELOG_FILE")
+        return changelogFile != null
+                ? rootProject.file(changelogFile).text
+                : System.getenv("MODRINTH_CHANGELOG_TEXT")
+    }
     dependencies {
         required.project 'fabric-api'
     }
 }
 
 signing {
+    required { System.getenv("MAVEN_GPG_PRIVATE_KEY") != null }
     def signingKey = System.getenv("MAVEN_GPG_PRIVATE_KEY")
     def signingPassword = System.getenv("MAVEN_GPG_PASSPHRASE")
     useInMemoryPgpKeys(signingKey, signingPassword)
