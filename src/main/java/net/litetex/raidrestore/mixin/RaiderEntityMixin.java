@@ -42,7 +42,7 @@ public abstract class RaiderEntityMixin
 		"checkstyle:MagicNumber",
 		"PMD.CognitiveComplexity",
 		"PMD.AvoidDeeplyNestedIfStmts"})
-	protected void onDeath(final DamageSource damageSource, final CallbackInfo ci)
+	protected void onDeath(final DamageSource source, final CallbackInfo ci)
 	{
 		final Raider current = (Raider)(Object)this;
 		if(current.level() instanceof final ServerLevel serverWorld
@@ -56,7 +56,7 @@ public abstract class RaiderEntityMixin
 				itemStack,
 				Raid.getOminousBannerInstance(current.registryAccess().lookupOrThrow(Registries.BANNER_PATTERN))))
 			{
-				final Player attackingPlayer = this.getAttackingPlayer(damageSource);
+				final Player attackingPlayer = this.getAttackingPlayer(source);
 				if(attackingPlayer != null)
 				{
 					final MobEffectInstance statusEffectInstance =

@@ -46,6 +46,7 @@ dependencies {
 
     // Only needed during development
     localRuntime "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    localRuntime "net.litetex.mcm:dev-auth-neo:1.1.1"
 }
 
 processResources {

@@ -30,13 +30,13 @@ public abstract class RaidManagerMixin
 	@Inject(method = "createOrExtendRaid", at = @At("HEAD"), cancellable = true)
 	protected void startRaid(
 		final ServerPlayer player,
-		final BlockPos pos,
+		final BlockPos raidPosition,
 		final CallbackInfoReturnable<Raid> cir)
 	{
 		final ServerLevel serverWorld = player.level();
 		if(player.isSpectator()
 			|| !serverWorld.getGameRules().get(GameRules.RAIDS)
-			|| !serverWorld.environmentAttributes().getValue(EnvironmentAttributes.CAN_START_RAID, pos))
+			|| !serverWorld.environmentAttributes().getValue(EnvironmentAttributes.CAN_START_RAID, raidPosition))
 		{
 			cir.setReturnValue(null);
 			return;
@@ -47,7 +47,7 @@ public abstract class RaidManagerMixin
 		for(final PoiRecord pointOfInterest : serverWorld.getPoiManager()
 			.getInRange(
 				poiType -> poiType.is(PoiTypeTags.VILLAGE),
-				pos,
+				raidPosition,
 				64,
 				PoiManager.Occupancy.IS_OCCUPIED)
 			.toList())
@@ -58,7 +58,7 @@ public abstract class RaidManagerMixin
 		}
 		final Raid raid = this.getOrCreateRaid(
 			serverWorld,
-			i > 0 ? BlockPos.containing(vec3d.scale(1.0 / i)) : pos);
+			i > 0 ? BlockPos.containing(vec3d.scale(1.0 / i)) : raidPosition);
 		
 		boolean startRaid = false;
 		if(!raid.isStarted())
