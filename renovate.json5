@@ -1,4 +1,49 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "rebaseWhen": "behind-base-branch"
+  "rebaseWhen": "behind-base-branch",
+  "packageRules": [
+    {
+      "description": "Workaround, see https://github.com/gradle/gradle/issues/27035",
+      "matchPackagePatterns": [
+        "^com.google.guava:guava"
+      ],
+      "datasources": [
+        "maven"
+      ],
+      "matchCurrentVersion": "0",
+      "enabled": false
+    },
+    {
+      "description": "This is a mock artifact",
+      "matchPackagePatterns": [
+        "^com.mojang:minecraft"
+      ],
+      "datasources": [
+        "maven"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Fabric has a custom server (see settings.gradle)",
+      "matchPackagePatterns": [
+        "^net.fabricmc"
+      ],
+      "datasources": [
+        "maven"
+      ],
+      "registryUrls": [
+        "https://maven.fabricmc.net/"
+      ]
+    },
+    {
+      "description": "Yarn versioning",
+      "matchPackagePatterns": [
+        "^net.fabricmc:yarn"
+      ],
+      "datasources": [
+        "maven"
+      ],
+      "allowedVersions": "/^1\\.[0-9]{1,2}(\\.[0-9]{1,2})?\\+build\\.[0-9]{1,2}$/"
+    }
+  ]
 }
