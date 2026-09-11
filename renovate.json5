@@ -28,6 +28,9 @@
       "matchPackagePatterns": [
         "^net.fabricmc"
       ],
+      "excludePackagePatterns": [
+        "^net.fabricmc:yarn"
+      ],
       "datasources": [
         "maven"
       ],
