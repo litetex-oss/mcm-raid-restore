@@ -95,6 +95,7 @@ public abstract class RaidManagerMixin
 		cir.setReturnValue(raid);
 	}
 	
+	@SuppressWarnings("checkstyle:IllegalIdentifierName")
 	@Shadow
 	@Final
 	private Int2ObjectMap<Raid> raidMap;
