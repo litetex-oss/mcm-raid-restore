@@ -49,7 +49,8 @@ processResources {
                 "name": project.mod_name,
                 "desc": project.mod_desc,
                 "license_spdx_id": project.mod_license_spdx_id,
-                "minecraft_version": project.minecraft_version,
+                // split on '-' to correctly target versions on non-releases (Snapshots, Prereleases, RC, etc)
+                "minecraft_version": project.minecraft_version.split('-')[0],
                 "loader_version": project.loader_version
     }
 }
