@@ -1,3 +1,6 @@
+# 1.6.0
+* Updated to 26.3
+
 # 1.5.0
 * Updated to 26.2
 * Add support for integrated debug renderer (`-DMC_DEBUG_ENABLED -DMC_DEBUG_RAIDS`)
